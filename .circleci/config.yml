@@ -110,10 +110,6 @@ jobs:
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
             --tags project=udapeople
 
-  configure-infrastructure:
-    docker:
-      - image: python:3.7-alpine3.11
-    steps:
       - run:
           name: Update Inventory
           command: |
@@ -125,8 +121,19 @@ jobs:
           name: Confirm Inventory is Updated
           command: |
             cat .circleci/ansible/inventory
-            
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  configure-infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
       - checkout
+      - attach_workspace:
+          at: .
       - add_ssh_keys:
           fingerprints: ["ff:fd:f3:67:a1:d3:3c:8f:d6:5b:9e:c5:3a:8e:f1:b1"]
       - run:
