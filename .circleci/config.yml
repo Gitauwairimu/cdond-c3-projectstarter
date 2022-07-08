@@ -13,7 +13,7 @@ jobs:
       - run:
             name: Npm Install
             command: |
-              npm install --no-package-lock
+              npm install
       - run:
           name: Start Npm
           command: |
