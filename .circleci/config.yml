@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Enter front-end directory
+          name: Install and run frontend build
           command: |
             cd frontend
             npm install
@@ -21,12 +21,13 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
+      - checkout
       - run:
-          name: Enter front-end directory
-          command: |
-            cd backend
-            npm install
-            npm run build
+        name: Enter Install npm and build backend
+        command: |
+          cd backend
+          npm install
+          npm run build
 
       - save_cache:
           paths: [backend/node_modules]
