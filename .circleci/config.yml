@@ -23,11 +23,11 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Enter Install npm and build backend
-        command: |
-          cd backend
-          npm install
-          npm run build
+          name: Enter Install npm and build backend
+          command: |
+            cd backend
+            npm install
+            npm run build
 
       - save_cache:
           paths: [backend/node_modules]
