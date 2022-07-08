@@ -9,7 +9,7 @@ jobs:
       - run:
             name: Enter front-end directory
             command: |
-              cd frontend
+              cd cdond-c3-projectstarter/frontend
 
       - run:
             name: Npm Install
