@@ -89,16 +89,29 @@ jobs:
       - run:
           name: Install gzip and tar packages
           command: |
-            sudo apt install tar
-            sudo apt install gzip
+            apt-get install tar
+            apt-get install gzip
+
       - run:
-          name: Enter location of IaC yaml
+          name: Create backend IaC
           command: |
+            cd .circleci/files
             aws cloudformation deploy \
             --template-file .circleci/files/backend.yml \
             --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
             --tags project=udapeople
+
+      - run:
+          name: Create frontend IaC
+          command: |
+            cd .circleci/files
+            aws cloudformation deploy \
+            --template-file .circleci/files/frontend.yml \
+            --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
+            --tags project=udapeople
+
 workflows:
   default:
     jobs:
