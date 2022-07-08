@@ -15,7 +15,7 @@ jobs:
       - run:
             name: Npm Install
             command: |
-              npm install
+              ls
 
       - run:
             name: Build Npm
