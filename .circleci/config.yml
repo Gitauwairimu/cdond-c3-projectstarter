@@ -111,11 +111,17 @@ jobs:
             --tags project=udapeople
 
       - run:
+          name: Create Inventory
+          command: |
+            touch .circleci/ansible/inventory
+            echo '[web]' >> .circleci/ansible/inventory
+            
+      - run:
           name: Update Inventory
           command: |
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text > .circleci/ansible/inventory
+            --output text >> .circleci/ansible/inventory
 
       - run:
           name: Confirm Inventory is Updated
@@ -134,7 +140,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-          
+
       - add_ssh_keys:
           fingerprints: ["ff:fd:f3:67:a1:d3:3c:8f:d6:5b:9e:c5:3a:8e:f1:b1"]
       - run:
