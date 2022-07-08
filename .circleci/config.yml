@@ -115,7 +115,7 @@ jobs:
           command: |
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> .circleci/ansible/inventory
+            --output text > .circleci/ansible/inventory
 
       - run:
           name: Confirm Inventory is Updated
@@ -136,7 +136,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook ansible/main-remote.yml
+            ansible-playbook .circleci/ansible/configure-server.yml
 
 workflows:
   default:
