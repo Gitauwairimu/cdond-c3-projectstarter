@@ -93,9 +93,15 @@ jobs:
             yum install -y gzip
 
       - run:
+          name: Show dir Content
+          command: |
+            ls
+
+      - run:
           name: Create backend IaC
           command: |
             cd .circleci/files
+            ls
             aws cloudformation deploy \
             --template-file .circleci/files/backend.yml \
             --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
