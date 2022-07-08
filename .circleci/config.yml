@@ -7,17 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Enter front-end directory
-          command: |
-            cd frontend
-      - run:
             name: Npm Install
             command: |
               npm install
-      - run:
-          name: Start Npm
-          command: |
-            ls
 
       - run:
             name: Build Npm
