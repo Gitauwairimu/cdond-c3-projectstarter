@@ -115,12 +115,12 @@ jobs:
           command: |
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> ansible/inventory
+            --output text >> .circleci/ansible/inventory
 
       - run:
           name: Confirm Inventory is Updated
           command: |
-            cat ansible/inventory
+            cat .circleci/ansible/inventory
 
   configure-infrastructure:
     docker:
