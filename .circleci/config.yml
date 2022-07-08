@@ -81,6 +81,24 @@ jobs:
             npm install
             npm audit fix --audit-level=critical --force
 
+  deploy-infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Install gzip and tar packages
+          command: |
+            sudo apt install tar
+            sudo apt install gzip
+      - run:
+          name: Enter location of IaC yaml
+          command: |
+            aws cloudformation deploy \
+            --template-file .circleci/files/backend.yml \
+            --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
+            --tags project=udapeople
 workflows:
   default:
     jobs:
@@ -98,3 +116,4 @@ workflows:
       - scan-backend:
           requires:
             - test-backend
+      - deploy-infrastructure
