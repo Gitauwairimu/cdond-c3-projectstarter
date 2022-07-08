@@ -10,12 +10,12 @@ jobs:
       - run:
             name: Enter front-end directory
             command: |
-              pwd
+              cd frontend
 
       - run:
             name: Npm Install
             command: |
-              ls
+              npm install
 
       - run:
             name: Build Npm
