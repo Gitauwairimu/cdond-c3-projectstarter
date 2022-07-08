@@ -11,15 +11,7 @@ jobs:
           name: Enter front-end directory
           command: |
             cd frontend
-
-      - run:
-          name: Npm Install
-          command: |
             npm install
-
-      - run:
-          name: Build Npm
-          command: |
             npm run build
 
       - save_cache:
