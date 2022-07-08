@@ -11,10 +11,18 @@ jobs:
           command: |
             cd frontend
       - run:
+            name: Npm Init
+            command: |
+              npm init -y
+      - run:
           name: install Npm
           command: |
             npm install
-      
+
+      - run:
+            name: Build Npm
+            command: |
+              npm run build
 
       - save_cache:
           paths: [frontend/node_modules]
