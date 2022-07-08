@@ -10,16 +10,11 @@ jobs:
             name: Enter front-end directory
             command: |
               cd frontend
-      - run:
-            name: Npm Install
-            command: |
-              npm rm -rdf node_modules
-
 
       - run:
             name: Npm Install
             command: |
-              npm install
+              pwd
 
       - run:
             name: Build Npm
