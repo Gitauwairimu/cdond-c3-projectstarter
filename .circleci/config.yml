@@ -148,11 +148,6 @@ jobs:
           name: Install Ansible
           command: |
             apk add --update ansible
-      - name: Add an Apt signing key, uses whichever key is at the URL
-          ansible.builtin.apt_key:
-            url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-            state: present
-
       - run:
           name: Run Playbook and Configure server
           command: |
