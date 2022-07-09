@@ -72,7 +72,7 @@
     - name: "npm version"
       shell: node -version
 
-    # - name: "install pm2"
+    # - name: "install pm2 "
     #   become: true
     #   npm:
     #     name: pm2
