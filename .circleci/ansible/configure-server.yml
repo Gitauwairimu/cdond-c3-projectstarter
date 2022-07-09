@@ -46,7 +46,7 @@
       apt:
         name: ["nodejs"]
         state: latest
-        update_cache: yes
+        # update_cache: yes
         
     - name: "npm version"
       shell: npm -version
