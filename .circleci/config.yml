@@ -113,8 +113,8 @@ jobs:
       - run:
           name: Create Inventory
           command: |
-            rm -rf .circleci/ansible/inventory
-            touch .circleci/ansible/inventory
+            rm -rf .circleci/ansible/inventory.txt
+            touch .circleci/ansible/inventory.txt
             echo '[web]' > .circleci/ansible/inventory.txt
             
       - run:

@@ -27,14 +27,14 @@
     # Add more env vars here
   
   tasks:
-    # - name: Run "apt-get update" 
-    #   apt:
-    #     update_cache: yes
+    - name: Run "apt-get update" 
+      apt:
+        update_cache: yes
 
-    # - name: "upgrade packages"
-    #   become: yes
-    #   apt:
-    #     upgrade: yes
+    - name: "upgrade packages"
+      become: yes
+      apt:
+        upgrade: yes
 
     - name: remove dependencies that are no longer required
       become: yes
