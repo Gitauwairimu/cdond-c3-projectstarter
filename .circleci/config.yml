@@ -81,6 +81,25 @@ jobs:
             npm install
             npm audit fix --audit-level=critical --force
 
+  get_last_deployment_id:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run: yum install -y tar gzip
+      - run:
+          name: Fetch and save the old pipeline ID (bucket name) responsible for the last release.
+          command: |
+            aws cloudformation \
+            list-exports --query "Exports[?Name==\`PipelineID\`].Value" \
+            --no-paginate --output text > ~/textfile.txt
+      - persist_to_workspace:
+          root: ~/
+          paths: 
+            - textfile.txt
+
+  
+
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli
@@ -154,6 +173,22 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
 
+  clean_up_old_front_end:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run: yum install -y tar gzip
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Destroy the previous S3 bucket and CloudFormation stack. 
+          # Use $OldBucketID environment variable or mybucket644752792305 below.
+          # Similarly, you can create and use $OldStackID environment variable in place of production-distro 
+          command: |
+            export OldBucketID=$(cat ~/textfile.txt)
+            aws s3 rm s3://${OldBucketID} --recursive
+
 workflows:
   default:
     jobs:
@@ -171,7 +206,13 @@ workflows:
       - scan-backend:
           requires:
             - test-backend
-      - deploy-infrastructure
+      - get_last_deployment_id
+      - deploy-infrastructure:
+          requires:
+            - get_last_deployment_id
       - configure-infrastructure:
           requires:
             - deploy-infrastructure
+      - clean_up_old_front_end:
+          requires:
+            - configure-infrastructure
