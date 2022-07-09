@@ -54,7 +54,7 @@
     - name: "install dependencies."
       become: yes
       apt:
-        name: ["nodejs", "tar", "gzip", "ansible", "awscli"]
+        name: ["nodejs", "tar", "gzip", "ansible", "awscli", "curl"]
         state: latest
         update_cache: yes
 
@@ -65,7 +65,7 @@
     - name: "install pm2"
       become: true
       npm:
-        name: pm2
+        name: pm2 -g
         global: true
         production: true
         state: present
