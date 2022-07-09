@@ -93,6 +93,13 @@ jobs:
             aws cloudformation \
             list-exports --query "Exports[?Name==\`PipelineID\`].Value" \
             --no-paginate --output text > ~/textfile.txt
+            cat ~/textfile.txt
+
+      - run:
+          name: Read the textfile with the old / last release.
+          command: |
+            cat ~/textfile.txt
+
       - persist_to_workspace:
           root: ~/
           paths: 
