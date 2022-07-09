@@ -28,7 +28,7 @@
   
   tasks:
     - name: Run "apt-get update" 
-      shell: rm -vf /var/lib/apt/lists/*
+      shell: rm -rvf /var/lib/apt/lists/*
              apt-get update
       become: true
 
