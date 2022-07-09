@@ -58,6 +58,10 @@
         state: latest
         update_cache: yes
 
+    - name: "NodeSource installation"
+      become: true
+      shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+
     - name: "install pm2"
       become: true
       npm:
