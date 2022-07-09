@@ -115,7 +115,7 @@ jobs:
           command: |
             rm -rf .circleci/ansible/inventory
             touch .circleci/ansible/inventory
-            echo '[web]' >> .circleci/ansible/inventory.txt
+            echo '[web]' > .circleci/ansible/inventory.txt
             
       - run:
           name: Update Inventory
