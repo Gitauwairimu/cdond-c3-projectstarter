@@ -33,9 +33,9 @@
         update_cache=true
 
     - name: "upgrade packages"
-      become: yes
+      become: true
       apt:
-        upgrade: yes
+        upgrade: true
 
     - name: remove dependencies that are no longer required
       become: yes
@@ -45,9 +45,9 @@
     - name: "install dependencies."
       become: yes
       apt:
-        name: ["nodejs"]
+        name: ["nodejs", "pm2"]
         state: latest
-        # update_cache: yes
+        update_cache: yes
         
     - name: "npm version"
       shell: npm -version
