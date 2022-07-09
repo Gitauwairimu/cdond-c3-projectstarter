@@ -58,29 +58,7 @@
         state: latest
         update_cache: yes
 
-    - name: "Node installation"
-      become: true
-      shell:
-        apt-get install build-essential
-        apt-get install curl openssl libssl-dev
-        git clone https://github.com/joyent/node.git
-        cd node
-        git checkout v0.10.24
-        ./configure
-        make
-        make install
-
-    - name: "Node installation"
-      become: true
-      shell:  npm install pm2 -g
-
-    - name: "node version"
-      shell: node -version
-
-    - name: "npm version"
-      shell: npm -version
-  
-    - name: "install pm2  "
+    - name: "Install pm2"
       become: true
       npm:
         name: pm2
