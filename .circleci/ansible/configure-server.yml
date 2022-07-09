@@ -28,9 +28,9 @@
   
   tasks:
     - name: Run "apt-get update" 
-      shell: rm -rvf /var/lib/apt/lists/*
-             apt-get update
-      become: true
+      become: yes
+      apt:
+        update_cache=true
 
     - name: "upgrade packages"
       become: yes
