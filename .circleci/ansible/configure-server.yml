@@ -14,7 +14,7 @@
 
   pre_tasks:
     - name: "wait 600 seconds for target connection to become reachable/usable."
-      shell: sleep 60s
+      shell: sleep 20s
 
     - name: "install python for Ansible."
       apt:
@@ -27,9 +27,9 @@
     # Add more env vars here
   
   tasks:
-    - name: Run "apt-get update" 
-      apt:
-        update_cache: yes
+#    - name: Run "apt-get update" 
+#      apt:
+#        update_cache: yes
 
     - name: "upgrade packages"
       become: yes
