@@ -58,9 +58,15 @@
         state: latest
         update_cache: yes
 
-    - name: "NodeSource installation"
+    - name: "Node Version Manager (NVM) installation"
       become: true
-      shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+      shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
+
+    - name: "install node"
+      become: true
+      nvm:
+        name: node
+        state: present
 
     - name: "install pm2"
       become: true
