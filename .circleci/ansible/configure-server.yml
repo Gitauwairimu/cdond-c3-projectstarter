@@ -45,13 +45,11 @@
     - name: "install dependencies."
       become: yes
       apt:
-        name: ["nodejs", "pm2"]
+        name: ["nodejs"]
         state: latest
         update_cache: yes
-        
-    - name: "npm version"
-      shell: npm -version
 
+   
     - name: "install pm2"
       become: true
       npm:
@@ -59,6 +57,9 @@
         global: true
         production: true
         state: present
+
+    - name: "npm version"
+      shell: npm -version
 
   roles:
     # Your code here - 
