@@ -58,16 +58,27 @@
         state: latest
         update_cache: yes
 
-    - name: "Node Version Manager (NVM) installation"
+    - name: "Node installation"
       become: true
-      shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
+      shell:  sudo apt-get install build-essential
+              sudo apt-get install curl openssl libssl-dev
+              git clone https://github.com/joyent/node.git
+              cd node
+              git checkout v0.10.24
+              ./configure
+              make
+              sudo make install
+
+    - name: "Node installation"
+      become: true
+      shell:  npm install pm2 -g
+
+    - name: "node version"
+      shell: node -version
 
     - name: "npm version"
       shell: npm -version
   
-    - name: "npm version"
-      shell: node -version
-
     - name: "install pm2  "
       become: true
       npm:
