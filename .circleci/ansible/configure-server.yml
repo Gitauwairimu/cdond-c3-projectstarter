@@ -70,7 +70,6 @@
 
     - name: "Install nodejs"
       apt:
-        update_cache: yes
         name: nodejs
         state: present
 
