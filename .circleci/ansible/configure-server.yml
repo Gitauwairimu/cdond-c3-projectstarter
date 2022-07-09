@@ -62,14 +62,23 @@
       become: true
       shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 
-
-    - name: "install pm2"
+    - name: "Node Pm2 installation"
       become: true
-      npm:
-        name: pm2
-        global: true
-        production: true
-        state: present
+      shell: nvm install node
+
+    - name: "npm version"
+      shell: npm -version
+  
+    - name: "npm version"
+      shell: node -version
+
+    # - name: "install pm2"
+    #   become: true
+    #   npm:
+    #     name: pm2
+    #     global: true
+    #     production: true
+    #     state: present
 
     - name: "npm version"
       shell: npm -version
