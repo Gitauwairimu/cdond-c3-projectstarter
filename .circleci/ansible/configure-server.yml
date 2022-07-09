@@ -20,12 +20,44 @@
       apt:
         name: ["python3"]
         state: latest
-        update_cache: yes
 
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"  
     # Add more env vars here
+  
+  tasks:
+    - name: Run "apt-get update" 
+      apt:
+        update_cache: yes
+
+    - name: "upgrade packages"
+      become: yes
+      apt:
+        upgrade: yes
+
+    - name: remove dependencies that are no longer required
+      become: yes
+      apt:
+        autoremove: yes
+
+    - name: "install dependencies."
+      become: yes
+      apt:
+        name: ["nodejs"]
+        state: latest
+        update_cache: yes
+        
+    - name: "npm version"
+      shell: npm -version
+
+    - name: "install pm2"
+      become: true
+      npm:
+        name: pm2
+        global: true
+        production: true
+        state: present
 
   roles:
     # Your code here
