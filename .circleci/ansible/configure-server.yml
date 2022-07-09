@@ -60,14 +60,15 @@
 
     - name: "Node installation"
       become: true
-      shell:  apt-get install build-essential
-              apt-get install curl openssl libssl-dev
-              git clone https://github.com/joyent/node.git
-              cd node
-              git checkout v0.10.24
-              ./configure
-              make
-              make install
+      shell:
+        apt-get install build-essential
+        apt-get install curl openssl libssl-dev
+        git clone https://github.com/joyent/node.git
+        cd node
+        git checkout v0.10.24
+        ./configure
+        make
+        make install
 
     - name: "Node installation"
       become: true
