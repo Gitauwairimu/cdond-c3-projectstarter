@@ -35,7 +35,7 @@
     - name: "upgrade packages"
       become: true
       apt:
-        upgrade: true
+        upgrade: True
 
     - name: remove dependencies that are no longer required
       become: yes
@@ -45,11 +45,10 @@
     - name: "install dependencies."
       become: yes
       apt:
-        name: ["nodejs"]
+        name: ["nodejs", "tar", "gzip", "ansible", "awscli"]
         state: latest
         update_cache: yes
 
-   
     - name: "install pm2"
       become: true
       npm:
