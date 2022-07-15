@@ -234,6 +234,8 @@ jobs:
       - run:
           name: Read contents of Inventory
           command: |
+            cd .circleci/ansible
+            ls
             cat inventory.txt
             nl inventory.txt
             tail -n 1  /inventory.txt
