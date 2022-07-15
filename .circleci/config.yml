@@ -225,7 +225,7 @@ jobs:
             ansible  --version
 
       - run:
-          name: Get backend url
+          name: Attach Inventory workspace
       - attach_workspace:
           at: .
       - run:
@@ -234,6 +234,8 @@ jobs:
             cat inventory.txt
             nl inventory.txt
             tail -n 1  /inventory.txt
+      - run:
+          name: Get backend url
           command: |
             export BACKEND_IP=$(aws ec2 describe-instances...............)
             export API_URL="http://${BACKEND_IP}:3030"
