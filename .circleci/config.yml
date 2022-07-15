@@ -349,3 +349,6 @@ workflows:
       - deploy-backend:
           requires:
             - deploy-frontend
+      - smoke-test:
+          requires:
+            - deploy-backend
