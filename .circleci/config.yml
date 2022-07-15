@@ -235,13 +235,11 @@ jobs:
           name: Read contents of Inventory
           command: |
             cd .circleci/ansible
-            cat inventory.txt
-            nl inventory.txt
             cat inventory.txt | awk 'END{print}'
       - run:
           name: Get backend url
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances...............)
+            export BACKEND_IP=$(cat inventory.txt | awk 'END{print}')
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
