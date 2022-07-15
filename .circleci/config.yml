@@ -226,10 +226,20 @@ jobs:
 
       - run:
           name: Get backend url
+      - attach_workspace:
+          at: .
+      - run:
+          name: Read contents of Inventory
           command: |
-            # your code here
+            cat inventory.txt
+            nl inventory.txt
+            tail -n 1  /inventory.txt
+          command: |
+            export BACKEND_IP=$(aws ec2 describe-instances...............)
             export API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
+            echo "API_URL = ${API_URL}"
+            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            cat frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
