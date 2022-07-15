@@ -222,7 +222,6 @@ jobs:
           command: |
             yum install python3-pip
             pip3 install ansible
-            ansible  --version
 
       - run:
           name: Read contents of Inventory
@@ -300,7 +299,9 @@ jobs:
             apk add --update npm
             apk add --update nodejs
             apk add curl
-            apk add --update awscli
+            # yum install python3-pip
+            pip3 install awscli
+            # apk add --update awscli
             
       - run:
           name: Get backend url
