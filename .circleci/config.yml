@@ -235,11 +235,9 @@ jobs:
           name: Read contents of Inventory
           command: |
             cd .circleci/ansible
-            ls
             cat inventory.txt
             nl inventory.txt
-            tail -n 1  /inventory.txt
-            cat /inventory.txt | awk 'END{print}'
+            cat inventory.txt | awk 'END{print}'
       - run:
           name: Get backend url
           command: |
