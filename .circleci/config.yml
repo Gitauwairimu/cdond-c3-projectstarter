@@ -246,6 +246,10 @@ jobs:
             cd ../..
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
+      - persist_to_workspace:
+          root: ~/frontend/.env
+          paths: 
+            - ~/frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
@@ -303,10 +307,9 @@ jobs:
             pip3 install awscli
             # apk add --update awscli
             
-      - run:
-          name: Get backend url
-          command: |
-            # your code here
+      - attach_workspace:
+          at: ~/frontend/.env
+      
       - run:
           name: Backend smoke test.
           command: |
