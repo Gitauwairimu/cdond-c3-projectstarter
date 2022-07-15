@@ -224,6 +224,10 @@ jobs:
             pip3 install ansible
             ansible  --version
 
+      - run:
+          name: Read contents of Inventory
+          command: |
+            yum install -y tar
       - attach_workspace:
           at: .
       - run:
@@ -232,6 +236,7 @@ jobs:
             cat inventory.txt
             nl inventory.txt
             tail -n 1  /inventory.txt
+            cat /inventory.txt | awk 'END{print}'
       - run:
           name: Get backend url
           command: |
