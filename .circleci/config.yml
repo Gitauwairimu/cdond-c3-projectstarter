@@ -228,6 +228,7 @@ jobs:
           name: Read contents of Inventory
           command: |
             yum install -y tar
+            yum install -y gzip
       - attach_workspace:
           at: .
       - run:
