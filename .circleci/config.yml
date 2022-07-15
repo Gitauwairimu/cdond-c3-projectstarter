@@ -255,24 +255,33 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      # Here's where you will add some code to rollback on failure      
-                    
-  # deploy-backend:
-  #   docker:
-  #     # Docker image here that supports Ansible
-  #   steps:
-  #     # Checkout code from git
-  #     # Add ssh keys with fingerprint
-  #     # attach workspace
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           # your code here
-  #     - run:
-  #         name: Deploy backend
-  #         command: |
-  #           # your code here
-  #     # Here's where you will add some code to rollback on failure 
+
+  deploy-backend:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["ff:fd:f3:67:a1:d3:3c:8f:d6:5b:9e:c5:3a:8e:f1:b1"]
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install nodejs, npm and check their version
+          command: |
+            apk add curl
+            curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+            apk add nodejs
+      - run:
+          name: Install Ansible
+          command: |
+            apk add --update ansible
+            apk add tar
+            apk add gzip
+      - run:
+          name: Deploy backend
+          command: |
+            # your code here
+      # Here's where you will add some code to rollback on failure 
 
 
 workflows:
@@ -305,3 +314,4 @@ workflows:
       - deploy-frontend:
           requires:
             - scan-frontend
+      - deploy-backend
