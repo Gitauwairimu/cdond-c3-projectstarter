@@ -221,9 +221,12 @@ jobs:
             aws --version
 
       - run:
-          name: Install epel-release and Ansible
+          name: Install Ansible
           command: |
-            yum install epel-release && yum install -y ansible
+            yum install  wget \
+            wget   https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.7-1.el7.ans.noarch.rpm \
+            yum  localinstall  ansible-2.5.7-1.el7.ans.noarch.rpm
+            ansible  --version
 
       - run:
           name: Get backend url
