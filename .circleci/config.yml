@@ -245,6 +245,8 @@ jobs:
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             pwd
+            cd ../..
+            pwd
             ls
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
