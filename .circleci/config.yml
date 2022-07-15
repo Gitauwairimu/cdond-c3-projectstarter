@@ -212,11 +212,6 @@ jobs:
             yum update -y && yum install -y python3
 
       - run:
-          name: Install Ansible
-          command: |
-            yum install -y ansible
-
-      - run:
           name: Install nodejs, npm and check their version
           command: |
             curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash - \
@@ -224,6 +219,11 @@ jobs:
             node --version
             npm --version
             aws --version
+
+      - run:
+          name: Install Ansible
+          command: |
+            yum install -y ansible
 
       - run:
           name: Get backend url
