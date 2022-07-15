@@ -321,4 +321,6 @@ workflows:
       - deploy-frontend:
           requires:
             - scan-frontend
-      - deploy-backend
+      - deploy-backend:
+          requires:
+            - deploy-frontend
