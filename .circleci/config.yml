@@ -221,9 +221,9 @@ jobs:
             aws --version
 
       - run:
-          name: Install Ansible
+          name: Install epel-release and Ansible
           command: |
-            yum install -y ansible
+            yum install epel-release && yum install -y ansible
 
       - run:
           name: Get backend url
