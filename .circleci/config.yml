@@ -223,11 +223,8 @@ jobs:
       - run:
           name: Enable epel-release and Install Ansible
           command: |
-            yum install wget
-            wget http://dl.fedoraproject.org/pub/epel/7/x86_6
-            rpm -ivh epel-release-7-11.noarch.rpm
-            yum repolist
-            yum install -y ansible
+            yum install python3-pip
+            pip3 install ansible
 
       - run:
           name: Get backend url
