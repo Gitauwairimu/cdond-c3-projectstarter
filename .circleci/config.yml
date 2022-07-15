@@ -224,8 +224,6 @@ jobs:
             pip3 install ansible
             ansible  --version
 
-      - run:
-          name: Attach Inventory workspace
       - attach_workspace:
           at: .
       - run:
