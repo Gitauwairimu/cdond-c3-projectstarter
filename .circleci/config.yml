@@ -209,18 +209,18 @@ jobs:
       - run:
           name: Update and Install Python
           command: |
-            sudo yum update -y && yum install -y python3
+            yum update -y && yum install -y python3
 
       - run:
           name: Install Ansible
           command: |
-            sudo yum install -y ansible
+            yum install -y ansible
 
       - run:
           name: Install nodejs, npm and check their version
           command: |
             curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash - \
-            sudo yum install -y nodejs
+            yum install -y nodejs
             node --version
             npm --version
             aws --version
