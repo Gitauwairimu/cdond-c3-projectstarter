@@ -1,0 +1,24 @@
+- name: "Install tar"
+  apt:
+    name: tar
+    state: present
+
+- name: "Extract Artifact"
+  shell: tar xvzf artifact.tar.gz
+
+- name: "install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: true
+    production: true
+    state: present
+
+- name: "npm version"
+  shell: npm -version
+
+- name: "pm2 stop"
+  shell: pm2 stop default
+
+- name: "start server"
+  shell: pm2 start npm -- start
