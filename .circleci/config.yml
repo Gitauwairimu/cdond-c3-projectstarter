@@ -302,4 +302,6 @@ workflows:
       - run-migrations:
           requires:
             - scan-backend
-      - deploy-frontend
+      - deploy-frontend:
+          requires:
+            - scan-frontend
