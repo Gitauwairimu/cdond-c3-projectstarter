@@ -268,9 +268,8 @@ jobs:
       - run:
           name: Install nodejs, npm and check their version
           command: |
-            apk add curl
-            curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-            apk add nodejs
+            apk add --update npm
+            apk add --update nodejs
       - run:
           name: Install Ansible
           command: |
@@ -280,8 +279,16 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            # your code here
-      # Here's where you will add some code to rollback on failure 
+            cd backend
+            npm i
+            npm run build
+            cd ..
+            # Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
+            cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml 
 
 
 workflows:
