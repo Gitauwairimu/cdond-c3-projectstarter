@@ -150,10 +150,10 @@ jobs:
           command: |
             cat .circleci/ansible/inventory.txt
 
-      - persist_to_workspace:
-          root: ~/
-          paths: 
-            - inventory.txt
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths: 
+      #       - inventory.txt
 
   configure-infrastructure:
     docker:
