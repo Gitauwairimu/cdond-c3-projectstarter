@@ -373,7 +373,6 @@ workflows:
       - test-backend:
           requires: [build-backend]
       - scan-backend:
-          context: buildbot-for-cicd-project
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
