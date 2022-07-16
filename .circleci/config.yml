@@ -186,9 +186,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - add_ssh_keys:
-          fingerprints: ["ff:fd:f3:67:a1:d3:3c:8f:d6:5b:9e:c5:3a:8e:f1:b1"]
-      
       - run:
           name: Run Playbook and Configure server
           command: |
@@ -219,8 +216,9 @@ jobs:
     docker:
       - image: amazon/aws-cli
     steps:
-      
-
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Update and Install Python
           command: |
@@ -244,14 +242,12 @@ jobs:
             yum install -y tar
             yum install -y gzip
 
-      - checkout
       - run:
           name: Where am I
           command: |
             pwd
             ls
-      - attach_workspace:
-          at: .
+
       - run:
           name: Where am I
           command: |
