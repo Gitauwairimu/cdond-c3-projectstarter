@@ -150,16 +150,17 @@ jobs:
           command: |
             cat .circleci/ansible/inventory.txt
 
-      # - persist_to_workspace:
-      #     root: ~/
-      #     paths: 
-      #       - inventory.txt
+      - persist_to_workspace:
+          root: ~/
+          paths: 
+            - project/.circleci/ansible/inventory.txt
 
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - run: apk add --update tar gzip
       - attach_workspace:
           at: ~/
 
