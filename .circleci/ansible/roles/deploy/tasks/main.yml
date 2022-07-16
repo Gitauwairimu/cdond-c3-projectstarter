@@ -28,8 +28,14 @@
 - name: "npm version"
   shell: npm -version
 
-- name: "pm2 stop"
-  shell: pm2 stop default
+# - name: "pm2 stop"
+#   shell: pm2 stop default
 
-- name: "start server"
-  shell: pm2 start npm -- start
+- name: start app
+  become: true
+  shell: |
+    pm2 delete all 
+    pm2 start npm -- start
+
+# - name: "start server"
+#   shell: pm2 start npm -- start
