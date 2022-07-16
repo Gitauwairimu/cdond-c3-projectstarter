@@ -214,7 +214,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       - attach_workspace:
@@ -222,25 +222,33 @@ jobs:
       - run:
           name: Update and Install Python
           command: |
-            yum update -y && yum install -y python3
-
-      - run:
-          name: Install nodejs, npm and check their version
-          command: |
-            curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-            yum install -y nodejs
-
+            apk add --update awscli
+            apk add --update npm
+            apk add --update nodejs
       - run:
           name: Install Ansible
           command: |
-            yum install python3-pip
-            pip3 install ansible
+            apk add --update ansible
+            apk add tar
+            apk add gzip
 
-      - run:
-          name: Install tar and gzip as dependencies
-          command: |
-            yum install -y tar
-            yum install -y gzip
+      # - run:
+      #     name: Install nodejs, npm and check their version
+      #     command: |
+      #       curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+      #       yum install -y nodejs
+
+      # - run:
+      #     name: Install Ansible
+      #     command: |
+      #       yum install python3-pip
+      #       pip3 install ansible
+
+      # - run:
+      #     name: Install tar and gzip as dependencies
+      #     command: |
+      #       yum install -y tar
+      #       yum install -y gzip
 
       - run:
           name: Where am I
