@@ -324,7 +324,7 @@ jobs:
             # apk add --update awscli
             
       - attach_workspace:
-          at: ./
+          at: ~/
       
       - run:
           name: Backend smoke test.
