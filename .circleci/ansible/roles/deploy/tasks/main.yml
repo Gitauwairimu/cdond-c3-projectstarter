@@ -3,8 +3,17 @@
     name: tar
     state: present
 
-- name: "ls contents"
-  shell: ls
+- name: "create ~/app"
+  ansible.builtin.file:
+    path: ~/app
+    state: directory
+    mode: '0755'
+
+- name: "copy files"
+  copy:
+    src: "~/project/artifact.tar.gz"
+    dest: ~/app
+    backup: true
 
 - name: "Extract Artifact"
   shell: tar xvzf ~/project/artifact.tar.gz
