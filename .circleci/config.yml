@@ -222,7 +222,7 @@ jobs:
       - run:
           name: Update and Install Python
           command: |
-            apk add --update awscli
+            #apk add --update awscli
             apk add --update npm
             apk add --update nodejs
       - run:
