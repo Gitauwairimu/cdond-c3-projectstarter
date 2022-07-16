@@ -325,7 +325,14 @@ jobs:
             
       - attach_workspace:
           at: ~/
-      
+
+      - run:
+          name: Confirm workspace attachment worked.
+          command: |
+            # Fetch and prepare the BACKEND_IP env var
+            cd .circleci/ansible
+            cat inventory.txt
+
       - run:
           name: Backend smoke test.
           command: |
@@ -372,10 +379,11 @@ workflows:
           requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
       - deploy-backend:
           requires: [run-migrations]
+      - deploy-frontend:
+          requires: [deploy-backend]
+
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
