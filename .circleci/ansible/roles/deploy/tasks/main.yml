@@ -3,14 +3,19 @@
     name: tar
     state: present
 
-- name: extract artifact
-  become: true
+- name: "Extract artifact to EC2"
   unarchive:
-    src: files/artifact.tar.gz 
-    dest: .
+    src: ~/project/artifact.tar.gz
+    dest: /home/ubuntu
 
-- name: "Extract Artifact"
-  shell: tar xvzf ~/project/artifact.tar.gz
+# - name: extract artifact
+#   become: true
+#   unarchive:
+#     src: files/artifact.tar.gz 
+#     dest: .
+
+# - name: "Extract Artifact"
+#   shell: tar xvzf ~/project/artifact.tar.gz
 
 - name: "install pm2"
   become: true
