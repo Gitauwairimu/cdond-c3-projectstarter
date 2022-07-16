@@ -224,7 +224,7 @@ jobs:
             pip3 install ansible
 
       - run:
-          name: Read contents of Inventory
+          name: Install tar and gzip as dependencies
           command: |
             yum install -y tar
             yum install -y gzip
@@ -247,9 +247,10 @@ jobs:
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
       - persist_to_workspace:
-          root: ~/
-          paths: 
-            - ~/
+          root: .
+          paths:
+            - ./
+
       - run:
           name: Deploy frontend objects
           command: |
@@ -308,7 +309,7 @@ jobs:
             # apk add --update awscli
             
       - attach_workspace:
-          at: ~/frontend/.env
+          at: ./
       
       - run:
           name: Backend smoke test.
