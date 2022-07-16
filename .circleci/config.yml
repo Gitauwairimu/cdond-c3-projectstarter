@@ -206,6 +206,8 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Update and Install Python
           command: |
@@ -228,8 +230,7 @@ jobs:
           command: |
             yum install -y tar
             yum install -y gzip
-      - attach_workspace:
-          at: .
+
       - run:
           name: Read contents of Inventory
           command: |
@@ -239,6 +240,7 @@ jobs:
           name: Get backend url
           command: |
             cd .circleci/ansible
+            ls
             cat inventory.txt | awk 'END{print}'
             export BACKEND_IP=$(cat inventory.txt | awk 'END{print}')
             export API_URL="http://${BACKEND_IP}:3030"
