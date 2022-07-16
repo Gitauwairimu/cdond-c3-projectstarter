@@ -233,7 +233,7 @@ jobs:
       - run:
           name: Read contents of Inventory
           command: |
-            cd .circleci/ansible
+            #cd .circleci/ansible
             cat inventory.txt | awk 'END{print}'
       - run:
           name: Get backend url
