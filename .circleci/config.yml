@@ -170,6 +170,10 @@ jobs:
           command: |
             apk add --update ansible
       - run:
+          name: Reboot
+          command: |
+            reboot
+      - run:
           name: Run Playbook and Configure server
           command: |
             cd .circleci/ansible
