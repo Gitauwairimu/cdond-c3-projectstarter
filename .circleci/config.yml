@@ -205,7 +205,7 @@ jobs:
     docker:
       - image: amazon/aws-cli
     steps:
-      - checkout
+      
 
       - run:
           name: Update and Install Python
@@ -230,6 +230,7 @@ jobs:
             yum install -y tar
             yum install -y gzip
 
+      - checkout
       - attach_workspace:
           at: .
 
