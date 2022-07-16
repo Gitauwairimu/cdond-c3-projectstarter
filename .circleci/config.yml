@@ -180,6 +180,13 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Playbook and Configure server
+          command: |
+            cd .circleci/ansible
+            cat inventory.txt
       - restore_cache:
           keys: [backend-build]
       - run:
