@@ -247,9 +247,9 @@ jobs:
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
       - persist_to_workspace:
-          root: ~
+          root: ~/
           paths: 
-            - ~
+            - ~/
       - run:
           name: Deploy frontend objects
           command: |
