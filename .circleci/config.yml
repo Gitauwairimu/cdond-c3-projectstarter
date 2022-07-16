@@ -231,13 +231,22 @@ jobs:
             yum install -y gzip
 
       - checkout
+      - run:
+          name: Where am I
+          command: |
+            pwd
+            ls
       - attach_workspace:
           at: .
-
+      - run:
+          name: Where am I
+          command: |
+            pwd
+            ls
       - run:
           name: Read contents of Inventory
           command: |
-            #cd .circleci/ansible
+            cd .circleci/ansible
             cat inventory.txt | awk 'END{print}'
       - run:
           name: Get backend url
