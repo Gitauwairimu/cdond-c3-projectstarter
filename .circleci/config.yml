@@ -303,9 +303,11 @@ jobs:
             cd ..
             # Zip the directory
             tar -C backend -czvf artifact.tar.gz .
+            export BACKEND_IP=$(cat .circleci/ansible/inventory.txt | awk 'END{print}')
+            mv artifact.tar.gz BACKEND_IP:~/app
             echo "Contents  of the inventory.txt file is -------"
             cd .circleci/ansible
-            cat inventory.txt
+            ech BACKEND_IP
             ansible-playbook -i inventory.txt deploy-backend.yml 
 
   smoke-test:
@@ -332,6 +334,7 @@ jobs:
             # Fetch and prepare the BACKEND_IP env var
             cd .circleci/ansible
             cat inventory.txt
+
 
       - run:
           name: Backend smoke test.
