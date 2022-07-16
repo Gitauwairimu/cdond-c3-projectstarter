@@ -206,8 +206,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - attach_workspace:
-          at: .
+
       - run:
           name: Update and Install Python
           command: |
@@ -230,6 +229,9 @@ jobs:
           command: |
             yum install -y tar
             yum install -y gzip
+
+      - attach_workspace:
+          at: .
 
       - run:
           name: Read contents of Inventory
