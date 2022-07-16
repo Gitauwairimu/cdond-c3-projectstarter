@@ -244,17 +244,6 @@ jobs:
             yum install -y gzip
 
       - run:
-          name: Where am I
-          command: |
-            pwd
-            ls
-
-      - run:
-          name: Where am I
-          command: |
-            pwd
-            ls
-      - run:
           name: Read contents of Inventory
           command: |
             cd .circleci/ansible
@@ -293,7 +282,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["ff:fd:f3:67:a1:d3:3c:8f:d6:5b:9e:c5:3a:8e:f1:b1"]
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: Install nodejs, npm and check their version
           command: |
