@@ -151,9 +151,9 @@ jobs:
             cat .circleci/ansible/inventory.txt
 
       - persist_to_workspace:
-          root: .
-          paths:
-            - .
+          root: ~/
+          paths: 
+            - inventory.txt
 
   configure-infrastructure:
     docker:
@@ -161,7 +161,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: .
+          at: ~/
 
       - add_ssh_keys:
           fingerprints: ["ff:fd:f3:67:a1:d3:3c:8f:d6:5b:9e:c5:3a:8e:f1:b1"]
