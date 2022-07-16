@@ -7,7 +7,7 @@
   shell: ls
 
 - name: "Extract Artifact"
-  shell: tar xvzf ~/artifact.tar.gz
+  shell: tar xvzf ~/project//artifact.tar.gz
 
 - name: "install pm2"
   become: true
