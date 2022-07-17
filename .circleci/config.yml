@@ -35,11 +35,11 @@ commands:
           when: on_fail
           command: |
             echo "Destroying environment: << parameters.workflow_id >> "
-            aws cloudformation delete \
+            aws cloudformation delete-stack \
             --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
             --parameter-overrides workflow_id="${CIRCLE_WORKFLOW_ID:0:7}" \
             --tags project=udapeople
-            aws cloudformation deploy \
+            aws cloudformation delete-stack \
             --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
             --parameter-overrides workflow_id="${CIRCLE_WORKFLOW_ID:0:7}" \
             --tags project=udapeople
