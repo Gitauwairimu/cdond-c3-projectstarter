@@ -395,7 +395,6 @@ jobs:
       - image: amazon/aws-cli
     steps:
       -checkout
-
       - run:
           name: Update cloudfront distribution
           command: |
