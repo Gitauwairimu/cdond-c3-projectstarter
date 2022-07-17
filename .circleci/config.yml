@@ -391,18 +391,21 @@ jobs:
 
   cloudfront-update:
     docker:
-      # Docker image here that supports AWS CLI
+      - image: amazon/aws-cli
     steps:
-      # Checkout code from git
-      - run:
-          name: Install dependencies
-          command: |
-            # your code here
+      -checkout
+      # - run:
+      #     name: Install dependencies
+      #     command: |
+      #       # your code here
       - run:
           name: Update cloudfront distribution
           command: |
-            # your code here
-      # Here's where you will add some code to rollback on failure  
+            aws cloudformation deploy \
+            --template-file .circleci/files/cloudfront.yml \
+            --stack-name InitialStack \
+            --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --tags project=udapeoplesome code to rollback on failure  
 
 
 workflows:
