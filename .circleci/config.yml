@@ -398,7 +398,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            echo "She went out"
+            echo She went out
       - run:
           name: Update cloudfront distribution
           command: |
