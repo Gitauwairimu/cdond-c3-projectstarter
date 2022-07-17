@@ -381,7 +381,7 @@ jobs:
             else
               return 1
             fi
-      - destroy-environment
+      - destroy-environment:
         when: on_fail
 
 workflows:
