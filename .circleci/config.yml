@@ -1,18 +1,46 @@
 version: 2.1
 
 commands:
+  revert-migrations:
+    description: Revert the last migration
+    parameters:
+        workflow_id:
+            type: string      
+    steps:
+        - run:
+            name: Revert migrations
+            when: on_fail
+            command: |
+                # Your Memstash or kvdb.io GET URL code goes here
+                # Example: Memstash.io
+                SUCCESS=$(curl -H "token: e52b52de-ee26-41a5-86e8-e8dcc3d995a5" --request GET https://api.memstash.io/values/migration_<< parameters.workflow_id >>)
+                # Example: kvdb.io
+                SUCCESS=$(curl --insecure  https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_<< parameters.workflow_id >>)
+                # Logic for reverting the database state
+                if (( $SUCCESS == 1 ));
+                then
+                    cd ~/project/backend
+                    npm install
+                    npm run migration:revert
+                fi 
+
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
-      workflow_id:
+      ID:
         type: string  
     steps:
       - run:
           name: Destroy environments
           when: on_fail
           command: |
+            echo "Destroying environment: << parameters.ID >> "
             aws cloudformation delete \
             --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
+            --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
+            --tags project=udapeople
+            aws cloudformation deploy \
+            --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
             --tags project=udapeople
             
@@ -97,27 +125,6 @@ jobs:
             cd backend
             npm install
             npm audit fix --audit-level=critical --force
-
-  get_last_deployment_id:
-    docker:
-      - image: amazon/aws-cli
-    steps:
-      - checkout
-      - run: yum install -y tar gzip
-      - run:
-          name: Fetch and save the old pipeline ID (bucket name) responsible for the last release.
-          command: |
-            aws cloudformation \
-            list-exports --query "Exports[?Name==\`PipelineID\`].Value" \
-            --no-paginate --output text > ~/textfile.txt
-            cat ~/textfile.txt
-
-      - persist_to_workspace:
-          root: ~/
-          paths: 
-            - textfile.txt
-
-  
 
   deploy-infrastructure:
     docker:
@@ -335,10 +342,8 @@ jobs:
             apk add --update npm
             apk add --update nodejs
             apk add curl
-            # yum install python3-pip
             pip3 install awscli
-            # apk add --update awscli
-            
+              
       - attach_workspace:
           at: ~/
 
@@ -355,7 +360,7 @@ jobs:
           command: |
             # Fetch and prepare the BACKEND_IP env var
             cd .circleci/ansible
-            export BACKEND_IP=$(cat inventory.txt | awk 'END{print}')
+            #export BACKEND_IP=$(cat inventory.txt | awk 'END{print}')
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
@@ -376,6 +381,8 @@ jobs:
             else
               return 1
             fi
+      - destroy-environment
+        when: on_fail
 
 workflows:
   default:
