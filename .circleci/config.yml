@@ -360,7 +360,7 @@ jobs:
           command: |
             # Fetch and prepare the BACKEND_IP env var
             cd .circleci/ansible
-            #export BACKEND_IP=$(cat inventory.txt | awk 'END{print}')
+            export BACKEND_IP=$(cat inventory.txt | awk 'END{print}')
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
@@ -389,6 +389,22 @@ jobs:
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
+  cloudfront-update:
+    docker:
+      # Docker image here that supports AWS CLI
+    steps:
+      # Checkout code from git
+      - run:
+          name: Install dependencies
+          command: |
+            # your code here
+      - run:
+          name: Update cloudfront distribution
+          command: |
+            # your code here
+      # Here's where you will add some code to rollback on failure  
+
+
 workflows:
   default:
     jobs:
@@ -415,7 +431,7 @@ workflows:
 
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
-      # - cloudfront-update:
-      #     requires: [smoke-test]
+      - cloudfront-update:
+          requires: [smoke-test]
       # - cleanup:
       #     requires: [cloudfront-update
