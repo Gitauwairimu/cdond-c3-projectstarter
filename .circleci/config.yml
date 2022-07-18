@@ -331,40 +331,95 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 
+  # smoke-test:
+  #   docker:
+  #     - image: python:3.7-alpine3.11
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           apk add --update npm
+  #           apk add --update nodejs
+  #           apk add curl
+  #           pip3 install awscli
+              
+  #     - attach_workspace:
+  #         at: ~/
+
+  #     - run:
+  #         name: Confirm workspace attachment worked.
+  #         command: |
+  #           # Fetch and prepare the BACKEND_IP env var
+  #           cd .circleci/ansible
+  #           cat inventory.txt
+
+
+  #     - run:
+  #         name: Backend smoke test.
+  #         command: |
+  #           # Fetch and prepare the BACKEND_IP env var
+  #           cd .circleci/ansible
+  #           export BACKEND_IP=$(cat inventory.txt | awk 'END{print}')
+  #           export API_URL="http://${BACKEND_IP}:3030"
+  #           echo "API_URL = ${API_URL}"
+  #           if curl "${API_URL}/api/status" | grep "ok"
+  #           #if curl -s http://google.com
+  #           then
+  #               return 0
+  #           else
+  #               return 1
+  #           fi
+  #     - run:
+  #         name: Frontend smoke test.
+  #         command: |
+  #           URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-2.amazonaws.com/#/employees"            
+  #           echo ${URL} 
+  #           if curl -s ${URL} | grep "Welcome"
+  #           then
+  #               # Change this to 0 after the job fails
+  #             return 0
+  #           else
+  #             return 1
+  #           fi
+      
+  #     - slack/notify:
+  #         channel: D03NGPP0EN8 #channel
+  #         event: fail
+
+      # - destroy-environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+
   smoke-test:
     docker:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - run: apk add --update tar gzip
       - run:
           name: Install dependencies
           command: |
+            wget https://nodejs.org/dist/v13.8.0/node-v13.8.0-linux-x64.tar.xz
+            apk add --update --no-cache 
+            apk add --update curl
             apk add --update npm
-            apk add --update nodejs
-            apk add curl
-            pip3 install awscli
-              
+      - run:
+          name: Install dependencies (awscli)
+          command: |
+            apk --no-cache add py-pip
+            pip install awscli
       - attach_workspace:
           at: ~/
-
-      - run:
-          name: Confirm workspace attachment worked.
-          command: |
-            # Fetch and prepare the BACKEND_IP env var
-            cd .circleci/ansible
-            cat inventory.txt
-
-
       - run:
           name: Backend smoke test.
           command: |
-            # Fetch and prepare the BACKEND_IP env var
-            cd .circleci/ansible
-            export BACKEND_IP=$(cat inventory.txt | awk 'END{print}')
+            export BACKEND_IP=$(aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --output text)
             export API_URL="http://${BACKEND_IP}:3030"
-            echo "API_URL = ${API_URL}"
+            echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
-            #if curl -s http://google.com
+            # if curl -s http://google.com
             then
                 return 0
             else
@@ -373,21 +428,18 @@ jobs:
       - run:
           name: Frontend smoke test.
           command: |
-            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-2.amazonaws.com/#/employees"            
-            echo ${URL} 
-            if curl -s ${URL} | grep "Welcome"
+            export URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
+            echo $URL
+            if curl ${URL} | grep "Welcome"
             then
-                # Change this to 0 after the job fails
+              # Change this to 0 after the job fails
               return 0
             else
               return 1
             fi
-      
-      - slack/notify:
-          channel: D03NGPP0EN8 #channel
-          event: fail
-
-      # - destroy-environment:
+      # - destroy_environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - revert_migrations:
       #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
   cloudfront-update:
