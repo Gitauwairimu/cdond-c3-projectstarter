@@ -81,15 +81,15 @@
         production: yes
         state: latest
 
-    - name: "Install NPM-distributed command-line tools"
-      npm:
-        global: yes
-        name: "{{ item }}"
-      with_items:
-        - firebase-tools
+    # - name: "Install NPM-distributed command-line tools"
+    #   npm:
+    #     global: yes
+    #     name: "{{ item }}"
+    #   with_items:
+    #     - firebase-tools
 
-    - name: "npm version"
-      shell: npm -version
+    # - name: "npm version"
+    #   shell: npm -version
 
   roles:
     # Your code here - 
