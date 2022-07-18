@@ -392,18 +392,19 @@ jobs:
 
   smoke-test:
     docker:
-      - image: cimg/base:stable 
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - install_aws_cli
-      - install_npm_node
       - run:
-          name: Install Curl
+          name: Install dependencies
           command: |
-            sudo apt update
-            sudo apt upgrade
-            sudo apt install curl
-            curl --version
+            apk add --update npm
+            apk add --update nodejs
+            apk add curl
+            pip3 install awscli
+              
+      - attach_workspace:
+          at: ~/
       - run:
           name: Backend smoke test.
           command: |
