@@ -88,8 +88,8 @@
     #   with_items:
     #     - firebase-tools
 
-    # - name: "npm version"
-    #   shell: npm -version
+    - name: "pm2 Start"
+      shell: pm2 start npm -- start
 
   roles:
     # Your code here - 
