@@ -266,8 +266,6 @@ jobs:
             cd ..
             # Zip the directory
             tar -C backend -czvf artifact.tar.gz .
-            pwd
-            ls
             echo "Contents  of the inventory.txt file is -------"
             cd .circleci/ansible
             cat inventory.txt
@@ -389,8 +387,8 @@ jobs:
           channel: D03NGPP0EN8 #channel
           event: fail
 
-      - destroy-environment:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - destroy-environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
   cloudfront-update:
     docker:
