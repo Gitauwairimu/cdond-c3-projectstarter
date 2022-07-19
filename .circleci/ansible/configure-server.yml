@@ -89,8 +89,9 @@
     #     - firebase-tools
 
     - name: "pm2 Start"
-      shell: pm2 stop default
-             pm2 start npm -- start
+      shell: |
+        pm2 stop default
+        pm2 start npm -- start
 
   roles:
     # Your code here - 
