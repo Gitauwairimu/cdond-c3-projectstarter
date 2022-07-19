@@ -3,10 +3,16 @@
     name: tar
     state: present
 
-- name: "Extract artifact to EC2"
+# - name: "Extract artifact to EC2"
+#   unarchive:
+#     src: /root/project/artifact.tar.gz
+#     dest: /home/ubuntu
+
+- name: extract artifact
+  become: true
   unarchive:
-    src: /root/project/artifact.tar.gz
-    dest: /home/ubuntu
+    src: files/artifact.tar.gz 
+    dest: .
 
 - name: "install pm2"
   become: true
@@ -22,11 +28,11 @@
 # - name: "pm2 stop"
 #   shell: pm2 stop default
 
-- name: start app
-  become: true
-  shell: |
-    pm2 delete all 
-    pm2 start npm -- start
+# - name: start app
+#   become: true
+#   shell: |
+#     pm2 delete all 
+#     pm2 start npm -- start
 
 - name: start app
   become: true

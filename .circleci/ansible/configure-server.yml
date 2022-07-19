@@ -81,6 +81,11 @@
         production: yes
         state: latest
 
+    - name: "pm2 Start"
+      shell: |
+        pm2 stop default
+        pm2 start npm -- start
+
     # - name: "Install NPM-distributed command-line tools"
     #   npm:
     #     global: yes
@@ -88,10 +93,7 @@
     #   with_items:
     #     - firebase-tools
 
-    - name: "pm2 Start"
-      shell: |
-        pm2 stop default
-        pm2 start npm -- start
+
 
   roles:
     # Your code here - 
