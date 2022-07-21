@@ -446,7 +446,7 @@ jobs:
             --tags project=udapeoplesomecode
 
       - persist_to_workspace:
-          root: ~/
+          root: ~/project
           paths: 
             - OldDistributionID.txt
   
@@ -463,7 +463,7 @@ jobs:
             yum install -y tar
             yum install -y gzip
       - attach_workspace:
-          at: ~/
+          at: ~/project
       - run:
           name: Get old stack workflow id
           command: |
