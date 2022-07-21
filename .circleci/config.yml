@@ -482,7 +482,7 @@ jobs:
               echo "-----------------No stacks to delete-----------------------"
             fi
       - destroy-environment:
-          workflowid: ${CIRCLE_WORKFLOW_ID:0:7}
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
 
 
