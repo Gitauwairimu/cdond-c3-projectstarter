@@ -443,9 +443,10 @@ jobs:
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
             --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --tags project=udapeoplesomecode  
+            --tags project=udapeoplesomecode
 
-cleanup:
+  
+  cleanup:
     docker:
       # Docker image here
       - image: amazon/aws-cli
@@ -507,5 +508,5 @@ workflows:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
           requires: [smoke-test]
-      # - cleanup:
-      #     requires: [cloudfront-update
+      - cleanup:
+          requires: [cloudfront-update]
