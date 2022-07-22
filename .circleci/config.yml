@@ -463,7 +463,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: 
-            - OldDistributionID.txt
+            ./
 
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -483,7 +483,7 @@ jobs:
             yum install -y tar
             yum install -y gzip
       - attach_workspace:
-          at: .
+          at: ./
       - run:
           name: Get old stack workflow id
           command: |
