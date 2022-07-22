@@ -461,7 +461,7 @@ jobs:
             ls
             pwd
       - persist_to_workspace:
-          root: ~/
+          root: /root/project
           paths: 
             - OldDistributionID.txt
   
