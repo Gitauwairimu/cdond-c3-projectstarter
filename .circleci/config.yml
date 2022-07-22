@@ -455,10 +455,15 @@ jobs:
             echo $OldWorkflowID > OldWorkflowID.txt
             cat OldWorkflowID.txt
 
+      - run:
+          name: Update cloudfront distribution
+          command: |
+            ls
+            pwd
       - persist_to_workspace:
           root: ~/
           paths: 
-            - project/OldDistributionID.txt
+            - OldDistributionID.txt
   
   cleanup:
     docker:
