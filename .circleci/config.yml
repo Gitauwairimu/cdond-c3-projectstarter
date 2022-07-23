@@ -480,6 +480,8 @@ jobs:
           name: Get old stack workflow id
           command: |
             #export OldWorkflowID=$(cat ~/OldDistributionID.txt)
+            cat OldWorkflowID.txt
+            export OldWorkflowID=$(cat OldWorkflowID.txt | awk 'END{print}')
             echo OldWorkflowID: "${OldWorkflowID}"
             echo CIRCLE_WORKFLOW_ID: "${CIRCLE_WORKFLOW_ID:0:7}"
             echo "------Delete the stacks that are not the current workflow id-----"
