@@ -1,85 +1,71 @@
----
+- name: Update apt packages
+  apt:
+    update_cache: yes
 
-- name: "Node Exporter Setup." 
-  hosts: web
-  user: ubuntu
-  become: true
-  become_method: sudo
-  become_user: root  
-  gather_facts: false
+- name: Upgrade apt packages
+  become: yes
+  apt:
+    upgrade: yes
 
+- name: Remove unused dependencies
+  become: yes
+  apt:
+    autoremove: yes
 
+- name: create user on remote host
+  ansible.builtin.user:
+    name: node_exporter
+    shell: /bin/bash
+    #group: wheel
 
-  tasks:
+# - name: Download Node Exporter
+#   unarchive:
+#     src: https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
+#     dest: /tmp
+#     remote_src: yes
 
-    - name: Update apt packages
-      apt:
-        update_cache: yes
+- name: Download Node Exporter and Unarchive it
+  ansible.builtin.unarchive:
+    src: https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
+    dest: .
+    remote_src: yes
 
-    - name: Upgrade apt packages
-      become: yes
-      apt:
-        upgrade: yes
+# - name: Extract binaries
+#   shell:
+#     tar xzf node_exporter-1.0.1.linux-amd64.tar.gz
 
-    - name: Remove unused dependencies
-      become: yes
-      apt:
-        autoremove: yes
-    
-    - name: create user on remote host
-      ansible.builtin.user:
-        name: node_exporter
-        shell: /bin/bash
-        #group: wheel
+- name: Move 'node exporter' binary to /usr/local/bin
+  become: yes
+  copy:
+    src: node_exporter-1.0.1.linux-amd64/node_exporter 
+    dest: /usr/local/bin/node_exporter
+    mode: '0777'
+    remote_src: yes
 
-    # - name: Download Node Exporter
-    #   unarchive:
-    #     src: https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
-    #     dest: /tmp
-    #     remote_src: yes
+- name: Remove useless exporter binaries
+  shell: >
+    rm -rf node_exporter-1.0.1.linux-amd64.tar.gz node_exporter-1.0.1.linux-amd64
 
-    - name: Download Node Exporter and Unarchive it
-      ansible.builtin.unarchive:
-        src: https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
-        dest: .
-        remote_src: yes
+- name: Create /etc/systemd/system/node-exporter.service file
+  become: yes
+  copy:
+    dest: /etc/systemd/system/node-exporter.service
+    content: |
+      [Unit]
+      Description=Prometheus Node Exporter Service
+      After=network.target
 
-    # - name: Extract binaries
-    #   shell:
-    #     tar xzf node_exporter-1.0.1.linux-amd64.tar.gz
+      [Service]
+      User=node_exporter
+      Group=node_exporter
+      Type=simple
+      ExecStart=/usr/local/bin/node_exporter
 
-    - name: Move 'node exporter' binary to /usr/local/bin
-      become: yes
-      copy:
-        src: node_exporter-1.0.1.linux-amd64/node_exporter 
-        dest: /usr/local/bin/node_exporter
-        mode: '0777'
-        remote_src: yes
+      [Install]
+      WantedBy=multi-user.target
 
-    - name: Remove useless exporter binaries
-      shell: >
-        rm -rf node_exporter-1.0.1.linux-amd64.tar.gz node_exporter-1.0.1.linux-amd64
-
-    - name: Create /etc/systemd/system/node-exporter.service file
-      become: yes
-      copy:
-        dest: /etc/systemd/system/node-exporter.service
-        content: |
-          [Unit]
-          Description=Prometheus Node Exporter Service
-          After=network.target
-
-          [Service]
-          User=node_exporter
-          Group=node_exporter
-          Type=simple
-          ExecStart=/usr/local/bin/node_exporter
-
-          [Install]
-          WantedBy=multi-user.target
-
-    - name: Configure systemd
-      become: yes
-      shell:
-        systemctl daemon-reload && systemctl enable node-exporter && systemctl start node-exporter && systemctl status node-exporter
+- name: Configure systemd
+  become: yes
+  shell:
+    systemctl daemon-reload && systemctl enable node-exporter && systemctl start node-exporter && systemctl status node-exporter
 
