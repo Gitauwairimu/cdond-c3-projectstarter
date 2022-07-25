@@ -267,6 +267,7 @@ jobs:
       - run:
           name: Install nodejs, npm and check their version
           command: |
+            apk add curl
             apk add --update npm
             apk add --update nodejs
       - run:
@@ -275,6 +276,12 @@ jobs:
             apk add --update ansible
             apk add tar
             apk add gzip
+      - run:
+          name: Install AwsCli
+          command: |
+            #apk add py3-pip
+            pip3 install awscli
+
       - run:
           name: Deploy backend
           command: |
