@@ -10,6 +10,7 @@ commands:
           event: fail
           channel: udacity-devops-class random
           template: basic_fail_1
+          mentions: "@EngineeringTeam"
 
   notify_slack_pass:
     steps:
@@ -17,6 +18,7 @@ commands:
           event: pass
           channel: udacity-devops-class random
           template: basic_success_1
+          mentions: "@EngineeringTeam"
 
   revert-migrations:
     description: Revert the last migration
