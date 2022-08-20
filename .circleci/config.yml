@@ -260,7 +260,7 @@ jobs:
       - run:
           name: Install awscli
           command: |
-              apt install -y awscli
+              sudo apt install -y awscli
 
                
       - run:
