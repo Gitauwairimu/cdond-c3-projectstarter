@@ -18,7 +18,7 @@ commands:
           event: pass
           channel: udacity-devops-class random
           template: basic_success_1
-          mentions: "@EngineeringTeam"
+          mentions: "@DevOps @gitauwairimu"
 
   revert-migrations:
     description: Revert the last migration
