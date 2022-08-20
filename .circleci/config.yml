@@ -240,10 +240,6 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
 
-      - slack/notify:
-          channel: D03NGPP0EN8 #channel
-          event: fail
-
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
@@ -284,15 +280,11 @@ jobs:
                 curl https://kvdb.io/C7QWz7FG1nPfCno61kMtGG/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
               fi
 
-      - notify_on_failure
-      - slack/notify:
-          channel: D03NGPP0EN8 #channel
-          event: fail
-
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      - notify_on_failure
 
   deploy-backend:
     docker:
@@ -336,14 +328,12 @@ jobs:
             cat .circleci/ansible/inventory.txt
             ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
 
-      - slack/notify:
-          channel: D03NGPP0EN8 #channel
-          event: fail
-
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+        
+      - notify_on_failure
 
   deploy-frontend:
     docker:
@@ -405,9 +395,7 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 
-      - slack/notify:
-          channel: D03NGPP0EN8 #channel
-          event: fail
+      - notify_on_failure
 
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -466,9 +454,7 @@ jobs:
               return 1
             fi
       
-      - slack/notify:
-          channel: D03NGPP0EN8 #channel
-          event: fail
+      - notify_on_failure
 
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -547,6 +533,8 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      
+      - notify_on_failure
   
   cleanup:
     docker:
@@ -580,9 +568,7 @@ jobs:
             else
               echo "-----------------No stacks to delete-----------------------"
             fi
-      - slack/notify:
-          channel: D03NGPP0EN8 #channel
-          event: fail
+      - notify_on_failure
 
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
