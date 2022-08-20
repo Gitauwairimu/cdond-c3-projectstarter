@@ -227,9 +227,10 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["7e:d8:46:90:4e:8a:68:0d:e1:40:e4:38:dc:9f:f3:eb"]
       - run:
-          name: Install Ansible
+          name: Install Ansible & awscli
           command: |
             apk add --update ansible
+            pip3 install awscli
       - run:
           name: Reboot
           command: |
@@ -258,6 +259,7 @@ jobs:
       - run:
           name: Install awscli
           command: |
+              apk add curl
               curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
               unzip awscliv2.zip \
               ./aws/install \
