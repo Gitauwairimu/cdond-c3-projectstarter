@@ -247,6 +247,7 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
       - notify_on_failure
+      - notify_slack_pass
 
   run-migrations:
     docker:
@@ -259,11 +260,8 @@ jobs:
       - run:
           name: Install awscli
           command: |
-              apk add awscli
-              # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-              # unzip awscliv2.zip \
-              # ./aws/install \
-              # rm -rf awscliv2.zip
+              apt install -y awscli
+
                
       - run:
           name: Run Playbook and Configure server
@@ -297,6 +295,7 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
           
       - notify_on_failure
+      - notify_slack_pass
 
   deploy-backend:
     docker:
