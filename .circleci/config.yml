@@ -8,14 +8,14 @@ commands:
     steps:
       - slack/notify:
           event: fail
-          channel: udacity-devops-class
+          channel: udacity-devops-class random
           template: basic_fail_1
 
   notify_slack_pass:
     steps:
       - slack/notify:
           event: pass
-          channel: udacity-devops-class
+          channel: udacity-devops-class random
           template: basic_success_1
 
   revert-migrations:
