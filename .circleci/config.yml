@@ -10,7 +10,7 @@ commands:
           event: fail
           channel: udacity-devops-class random
           template: basic_fail_1
-          mentions: "@EngineeringTeam"
+          mentions: "@DevOps" "@gitauwairimu"
 
   notify_slack_pass:
     steps:
