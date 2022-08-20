@@ -8,7 +8,7 @@ commands:
     steps:
       - slack/notify:
           event: fail
-          channel: #udacity-devops-class
+          channel: udacity-devops-class
           template: basic_fail_1
 
   notify_slack_pass:
