@@ -8,8 +8,15 @@ commands:
     steps:
       - slack/notify:
           event: fail
-          channel: 03-cloud-devops
+          channel: #udacity-devops-class
           template: basic_fail_1
+
+  notify_slack_pass:
+    steps:
+      - slack/notify:
+          event: pass
+          channel: udacity-devops-class
+          template: basic_success_1
 
   revert-migrations:
     description: Revert the last migration
