@@ -220,7 +220,7 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - run: apk add --update tar gzip
+      - run: apk add --update tar gzip curl
       - attach_workspace:
           at: ~/
 
