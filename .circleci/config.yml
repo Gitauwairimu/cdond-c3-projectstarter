@@ -199,6 +199,8 @@ jobs:
           paths: 
             - project/.circleci/ansible/inventory.txt
 
+      - notify_on_failure
+
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
@@ -233,6 +235,8 @@ jobs:
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
+      - notify_on_failure
+
   run-migrations:
     docker:
       - image: circleci/node:13.8.0
@@ -266,6 +270,7 @@ jobs:
                 curl https://kvdb.io/C7QWz7FG1nPfCno61kMtGG/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
               fi
 
+      - notify_on_failure
       - slack/notify:
           channel: D03NGPP0EN8 #channel
           event: fail
