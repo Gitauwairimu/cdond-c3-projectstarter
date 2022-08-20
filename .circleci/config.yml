@@ -78,6 +78,7 @@ jobs:
           key: frontend-build
 
       - notify_on_failure
+      - notify_slack_pass
 
   build-backend:
     docker:
@@ -96,6 +97,7 @@ jobs:
           key: backend-build
 
       - notify_on_failure
+      - notify_slack_pass
 
   test-frontend:
     docker:
@@ -110,6 +112,7 @@ jobs:
             npm run test
 
       - notify_on_failure
+      - notify_slack_pass
 
   test-backend:
     docker:
@@ -124,6 +127,7 @@ jobs:
             npm run test
 
       - notify_on_failure
+      - notify_slack_pass
 
   scan-frontend:
     docker:
@@ -138,6 +142,7 @@ jobs:
             npm audit fix --audit-level=critical --force
 
       - notify_on_failure
+      - notify_slack_pass
 
   scan-backend:
     docker:
