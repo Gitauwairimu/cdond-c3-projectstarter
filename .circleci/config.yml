@@ -225,7 +225,7 @@ jobs:
           at: ~/
 
       - add_ssh_keys:
-          fingerprints: ["ff:fd:f3:67:a1:d3:3c:8f:d6:5b:9e:c5:3a:8e:f1:b1"]
+          fingerprints: ["7e:d8:46:90:4e:8a:68:0d:e1:40:e4:38:dc:9f:f3:eb"]
       - run:
           name: Install Ansible
           command: |
