@@ -27,7 +27,7 @@ vpc_security_group_ids = [
 #     volume_type = "gp2"
 #  }
   tags = {
-    Name ="Prometheus Server"
+    Name ="PrometheusServer"
     OS = "UBUNTU"
     Managed = "IAC"
   }
@@ -52,9 +52,9 @@ resource "aws_security_group" "prometheus-iac-sg" {
 
   // To Allow Port 80 Transport
   ingress {
-    from_port = 80
+    from_port = 9090
     protocol = "tcp"
-    to_port = 80
+    to_port = 9090
     cidr_blocks = ["0.0.0.0/0"]
   }
 
