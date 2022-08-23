@@ -26,6 +26,8 @@ scrape_configs:
 
 EOF
 
+mkdir -p /etc/systemd/system/
+touch /etc/systemd/system/prometheus.service
 
 cat > /etc/systemd/system/prometheus.service << EOF
 [Unit]
