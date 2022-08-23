@@ -612,7 +612,9 @@ jobs:
       - run:
           name: Ansible Install Prometheus
           command: |
-            apk install awscli
+            apk add py3-pip
+            pip3 install awscli
+            # apk install awscli
             pip3 install ansible
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
