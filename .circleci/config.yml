@@ -631,6 +631,7 @@ jobs:
             --output text >> prometheusinventory.txt
             cat prometheusinventory.txt
             ansible-playbook -i prometheusinventory.txt prometheusinstall.yml
+            systemctl status prometheus
 
 workflows:
   default:
