@@ -627,10 +627,10 @@ workflows:
       - deploy-frontend:
           requires: [deploy-backend]
 
-      - smoke-test:
+      - front-smoke-test:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
-          requires: [smoke-test]
+          requires: [front-smoke-test]
       - cleanup:
           requires: [cloudfront-update]
       - prometheus-server-provisioning:
