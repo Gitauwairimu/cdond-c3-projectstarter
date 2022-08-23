@@ -623,7 +623,7 @@ jobs:
           command: |
             cd .circleci/monitoring
             rm prometheusinventory.txt
-            echo "[monitor]" >> prometheusinventory.txt
+            echo "[monitoring]" >> prometheusinventory.txt
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text >> prometheusinventory.txt
