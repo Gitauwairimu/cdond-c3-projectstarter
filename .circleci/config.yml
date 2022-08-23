@@ -631,9 +631,9 @@ jobs:
             --output text >> prometheusinventory.txt
             cat prometheusinventory.txt
             ansible-playbook -i prometheusinventory.txt prometheusinstall.yml
-            sudo systemctl daemon-reload
-            sudo systemctl start prometheus
-            systemctl status prometheus
+            # sudo systemctl daemon-reload
+            # sudo systemctl start prometheus
+            # systemctl status prometheus
 
 workflows:
   default:
