@@ -469,7 +469,7 @@ jobs:
             if curl ${URL} | grep "Welcome"
             then
               # Change this to 0 after the job fails
-              return 0
+              return 1
             else
               return 1
             fi
@@ -480,39 +480,6 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
       - notify_on_failure
-
-  # smoke-test:
-  #   docker:
-  #     - image: python:3.7-alpine3.11
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           apk add --update npm
-  #           apk add --update nodejs
-  #           apk add curl
-  #           pip3 install awscli
-              
-  #     - attach_workspace:
-  #         at: ~/
-  #     - run:
-  #         name: Backend smoke test.
-  #         command: |
-  #           export BACKEND_IP=$(aws ec2 describe-instances \
-  #           --query 'Reservations[*].Instances[*].PublicIpAddress' \
-  #           --output text) 
-  #           export API_URL="http://${BACKEND_IP}:3030"
-  #           echo "${API_URL}"      
-  #           if curl "${API_URL}/api/status" | grep "ok"; then exit 0; else exit 1; fi
-  #     - run:
-  #         name: Frontend smoke test.
-  #         command: |
-  #           URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-2.amazonaws.com/#/employees"            
-            # echo ${URL} 
-            # if curl ${URL} | grep "Welcome"; then exit 0; else exit 1; fi
-      # - destroy-environment:
-      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
   cloudfront-update:
     docker:
@@ -571,7 +538,7 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: Get old stack workflow id
+          name: Get old stack workflow id, remove old S3 bucket & EC2 instance
           command: |
             #export OldWorkflowID=$(cat ~/OldDistributionID.txt)
             cat OldWorkflowID.txt
@@ -619,13 +586,13 @@ jobs:
       #       pip3 install ansible
       #       apk add systemctl
                 
-      - run:
-          name: Ansible Install Prometheus
-          command: |
-            cd .circleci/monitoring
-            chmod +x bashprometheuscript.sh
-            cat bashprometheuscript.sh
-            ./bashprometheuscript.sh
+      # - run:
+      #     name: Ansible Install Prometheus
+      #     command: |
+      #       cd .circleci/monitoring
+      #       chmod +x bashprometheuscript.sh
+      #       cat bashprometheuscript.sh
+      #       ./bashprometheuscript.sh
       #       echo "[monitoring]" >> prometheusinventory.txt
       #       aws ec2 describe-instances \
       #       --query 'Reservations[*].Instances[*].PublicIpAddress' \
