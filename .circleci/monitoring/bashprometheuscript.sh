@@ -1,3 +1,5 @@
+#!/bin/bash
+
 useradd --no-create-home prometheus
 mkdir /etc/prometheus
 mkdir /var/lib/prometheus
