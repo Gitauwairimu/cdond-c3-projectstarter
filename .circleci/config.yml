@@ -611,30 +611,30 @@ jobs:
             terraform init -input=false
             terraform apply -auto-approve
 
-      - run:
-          name: Install awscli & Ansible
-          command: |
-            apk add py3-pip
-            pip3 install awscli
-            pip3 install ansible
-            apk add systemctl
+      # - run:
+      #     name: Install awscli & Ansible
+      #     command: |
+      #       apk add py3-pip
+      #       pip3 install awscli
+      #       pip3 install ansible
+      #       apk add systemctl
                 
-      - run:
-          name: Ansible Install Prometheus
-          command: |
-            cd .circleci/monitoring
-            # chmod +x rmFile.sh
-            # cat rmFile.sh
-            # rmFile.sh
-            echo "[monitoring]" >> prometheusinventory.txt
-            aws ec2 describe-instances \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> prometheusinventory.txt
-            cat prometheusinventory.txt
-            ansible-playbook -i prometheusinventory.txt prometheusinstall.yml
-            sudo systemctl daemon-reload
-            sudo systemctl start prometheus
-            sudo systemctl status prometheus
+      # - run:
+      #     name: Ansible Install Prometheus
+      #     command: |
+      #       cd .circleci/monitoring
+      #       # chmod +x rmFile.sh
+      #       # cat rmFile.sh
+      #       # rmFile.sh
+      #       echo "[monitoring]" >> prometheusinventory.txt
+      #       aws ec2 describe-instances \
+      #       --query 'Reservations[*].Instances[*].PublicIpAddress' \
+      #       --output text >> prometheusinventory.txt
+      #       cat prometheusinventory.txt
+      #       ansible-playbook -i prometheusinventory.txt prometheusinstall.yml
+      #       sudo systemctl daemon-reload
+      #       sudo systemctl start prometheus
+      #       sudo systemctl status prometheus
 
 workflows:
   default:
