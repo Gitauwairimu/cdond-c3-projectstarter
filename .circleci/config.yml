@@ -2,6 +2,7 @@ version: 2.1
 
 orbs: 
   slack: circleci/slack@4.10.1
+  terraform: circleci/terraform@3.1.0
 
 commands:
   notify_on_failure:
@@ -597,15 +598,18 @@ jobs:
   prometheus-server-provisioning:
     docker:
       # Docker image here
-      - image: amazon/aws-cli
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       # Checkout code from git
       - checkout
       - run:
-          name: Install dependencies
+          name: Terraform Init
           command: |
-            yum install -y tar
-            yum install -y gzip
+            terraform init -input=false
+      - run:
+          name: Terraform Apply
+          command: |
+            terraform apply -auto-approve
 
 workflows:
   default:
