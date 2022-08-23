@@ -16,6 +16,7 @@ provider "aws" {
 resource "aws_instance" "prometheus-server" {
     ami = "ami-08d4ac5b634553e16" #ubuntu 20.04 LTS // us-east-1
     instance_type = "t2.micro"
+    key_name = "ados-us-east1"
 
 vpc_security_group_ids = [
     aws_security_group.prometheus-iac-sg.id
