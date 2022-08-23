@@ -329,6 +329,7 @@ jobs:
           command: |
             #apk add py3-pip
             pip3 install awscli
+            
 
       - run:
           name: Deploy backend
@@ -611,6 +612,9 @@ jobs:
       - run:
           name: Ansible Install Prometheus
           command: |
+            apt-get install python3-pip
+            pip3 install awscli
+            pip3 install ansible
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text >> .circleci/ansible/prometheusinventory.txt
