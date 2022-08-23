@@ -616,10 +616,11 @@ jobs:
             pip3 install awscli
             # apk install awscli
             pip3 install ansible
+            echo "[monitor]" >> .circleci/ansible/inventory.txt
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> .circleci/ansible/prometheusinventory.txt
-            cat .circleci/ansible/prometheusinventory.txt
+            --output text >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
             # cd prometheus-server-terraform
             # ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
 
