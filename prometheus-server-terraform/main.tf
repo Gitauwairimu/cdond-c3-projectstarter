@@ -24,13 +24,13 @@ vpc_security_group_ids = [
 #   root_block_device {
 #     delete_on_termination = true
 #     iops = 150
-#     volume_size = 50
+#     volume_size = 10
 #     volume_type = "gp2"
 #  }
   tags = {
     Name ="PrometheusServer"
-    OS = "UBUNTU"
-    Managed = "IAC"
+    OS = "ubuntu"
+    Managed = "IaC"
   }
 
   depends_on = [ aws_security_group.prometheus-iac-sg ]
@@ -51,7 +51,37 @@ resource "aws_security_group" "prometheus-iac-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  // To Allow Port 80 Transport
+  // To Allow Port 9100 Transport
+  ingress {
+    from_port = 9100
+    protocol = "tcp"
+    to_port = 9100
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+
+  // To Allow Port 9093 Transport
+  ingress {
+    from_port = 9093
+    protocol = "tcp"
+    to_port = 9093
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+
+  // To Allow Port 9090 Transport
   ingress {
     from_port = 9090
     protocol = "tcp"
