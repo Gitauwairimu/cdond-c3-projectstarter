@@ -605,6 +605,7 @@ jobs:
       - run:
           name: Terraform Init
           command: |
+            cd prometheus-server-terraform
             terraform init -input=false
       - run:
           name: Terraform Apply
