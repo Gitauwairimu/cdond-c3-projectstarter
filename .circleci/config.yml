@@ -608,12 +608,20 @@ jobs:
             cd prometheus-server-terraform
             terraform init -input=false
             terraform apply -auto-approve
+      - run:
+          name: Ansible Install Prometheus
+          command: |
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> .circleci/ansible/prometheusinventory.txt
+            cat .circleci/ansible/prometheusinventory.txt
+            # cd prometheus-server-terraform
+            # ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
 
 
 workflows:
   default:
     jobs:
-      - prometheus-server-provisioning
       # - build-frontend
       # - build-backend
       # - test-frontend:
@@ -641,3 +649,6 @@ workflows:
       #     requires: [smoke-test]
       # - cleanup:
       #     requires: [cloudfront-update]
+      # - prometheus-server-provisioning:
+      #     requires: [cloudfront-update]
+      - prometheus-server-provisioning
