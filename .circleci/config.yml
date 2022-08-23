@@ -422,7 +422,7 @@ jobs:
       
       - notify_on_failure
 
-  smoke-test:
+  front-smoke-test:
     docker:
       - image: python:3.7-alpine3.11
     steps:
