@@ -621,15 +621,14 @@ jobs:
       - run:
           name: Ansible Install Prometheus
           command: |
-            echo \n
-            echo "[monitor]" >> .circleci/ansible/inventory.txt
+            cd .circleci/monitoring
+            rm prometheusinventory.txt
+            echo "[monitor]" >> prometheusinventory.txt
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> .circleci/ansible/inventory.txt
-            cat .circleci/ansible/inventory.txt
-            # cd prometheus-server-terraform
-            # ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
-
+            --output text >> prometheusinventory.txt
+            cat prometheusinventory.txt
+            ansible-playbook -i prometheusinventory.txt prometheusinstall.yml
 
 workflows:
   default:
