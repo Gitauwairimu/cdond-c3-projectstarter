@@ -619,13 +619,13 @@ jobs:
       #       pip3 install ansible
       #       apk add systemctl
                 
-      # - run:
-      #     name: Ansible Install Prometheus
-      #     command: |
-      #       cd .circleci/monitoring
-      #       # chmod +x rmFile.sh
-      #       # cat rmFile.sh
-      #       # rmFile.sh
+      - run:
+          name: Ansible Install Prometheus
+          command: |
+            cd .circleci/monitoring
+            chmod +x bashprometheuscript.sh
+            cat bashprometheuscript.sh
+            ./bashprometheuscript.sh
       #       echo "[monitoring]" >> prometheusinventory.txt
       #       aws ec2 describe-instances \
       #       --query 'Reservations[*].Instances[*].PublicIpAddress' \
