@@ -615,8 +615,8 @@ jobs:
           command: |
             apk add py3-pip
             pip3 install awscli
-            # apk install awscli
             pip3 install ansible
+            apk add systemctl
                 
       - run:
           name: Ansible Install Prometheus
@@ -631,6 +631,8 @@ jobs:
             --output text >> prometheusinventory.txt
             cat prometheusinventory.txt
             ansible-playbook -i prometheusinventory.txt prometheusinstall.yml
+            sudo systemctl daemon-reload
+            sudo systemctl start prometheus
             systemctl status prometheus
 
 workflows:
