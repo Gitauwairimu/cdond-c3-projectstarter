@@ -635,4 +635,3 @@ workflows:
           requires: [cloudfront-update]
       - prometheus-server-provisioning:
           requires: [cloudfront-update]
-      - prometheus-server-provisioning
