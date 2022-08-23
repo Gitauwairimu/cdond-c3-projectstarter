@@ -622,16 +622,8 @@ jobs:
           name: Ansible Install Prometheus
           command: |
             cd .circleci/monitoring
-
-           # #!/bin/bash
-
-            file="prometheusinventory.txt"
-
-            if [ -f "$file" ] ; then
-                rm "$file"
-            fi
-
-
+            chmod +x rmFile.sh
+            ./rmFile.sh
             echo "[monitoring]" >> prometheusinventory.txt
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
