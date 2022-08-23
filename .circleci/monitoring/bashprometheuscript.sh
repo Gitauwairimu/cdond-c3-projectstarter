@@ -1,16 +1,16 @@
-sudo useradd --no-create-home prometheus
-sudo mkdir /etc/prometheus
-sudo mkdir /var/lib/prometheus
+useradd --no-create-home prometheus
+mkdir /etc/prometheus
+mkdir /var/lib/prometheus
 
 wget https://github.com/prometheus/prometheus/releases/download/v2.19.0/prometheus-2.19.0.linux-amd64.tar.gz
 tar xvfz prometheus-2.19.0.linux-amd64.tar.gz
 
-sudo cp prometheus-2.19.0.linux-amd64/prometheus /usr/local/bin
-sudo cp prometheus-2.19.0.linux-amd64/promtool /usr/local/bin/
-sudo cp -r prometheus-2.19.0.linux-amd64/consoles /etc/prometheus
-sudo cp -r prometheus-2.19.0.linux-amd64/console_libraries /etc/prometheus
+cp prometheus-2.19.0.linux-amd64/prometheus /usr/local/bin
+cp prometheus-2.19.0.linux-amd64/promtool /usr/local/bin/
+cp -r prometheus-2.19.0.linux-amd64/consoles /etc/prometheus
+cp -r prometheus-2.19.0.linux-amd64/console_libraries /etc/prometheus
 
-sudo cp prometheus-2.19.0.linux-amd64/promtool /usr/local/bin/
+cp prometheus-2.19.0.linux-amd64/promtool /usr/local/bin/
 rm -rf prometheus-2.19.0.linux-amd64.tar.gz prometheus-2.19.0.linux-amd64
 
 cat > /etc/prometheus/prometheus.yml << EOF
@@ -49,13 +49,13 @@ WantedBy=multi-user.target
 EOF
 
 
-sudo chown prometheus:prometheus /etc/prometheus
-sudo chown prometheus:prometheus /usr/local/bin/prometheus
-sudo chown prometheus:prometheus /usr/local/bin/promtool
-sudo chown -R prometheus:prometheus /etc/prometheus/consoles
-sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
-sudo chown -R prometheus:prometheus /var/lib/prometheus
+chown prometheus:prometheus /etc/prometheus
+chown prometheus:prometheus /usr/local/bin/prometheus
+chown prometheus:prometheus /usr/local/bin/promtool
+chown -R prometheus:prometheus /etc/prometheus/consoles
+chown -R prometheus:prometheus /etc/prometheus/console_libraries
+chown -R prometheus:prometheus /var/lib/prometheus
 
-sudo systemctl daemon-reload
-sudo systemctl enable prometheus
-sudo systemctl start prometheus
+systemctl daemon-reload
+systemctl enable prometheus
+systemctl start prometheus
