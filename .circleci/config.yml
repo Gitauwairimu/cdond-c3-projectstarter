@@ -603,19 +603,25 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      # - run:
-      #     name: Terraform Init & Apply
-      #     command: |
-      #       cd prometheus-server-terraform
-      #       terraform init -input=false
-      #       terraform apply -auto-approve
       - run:
-          name: Ansible Install Prometheus
+          name: Terraform Init & Apply
+          command: |
+            cd prometheus-server-terraform
+            terraform init -input=false
+            terraform apply -auto-approve
+
+      - run:
+          name: Install awscli & Ansible
           command: |
             apk add py3-pip
             pip3 install awscli
             # apk install awscli
             pip3 install ansible
+                
+      - run:
+          name: Ansible Install Prometheus
+          command: |
+            echo \n
             echo "[monitor]" >> .circleci/ansible/inventory.txt
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
