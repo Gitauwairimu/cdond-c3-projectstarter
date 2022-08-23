@@ -600,6 +600,7 @@ jobs:
     docker:
       # Docker image here
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+      # - image: ubuntu:focal
     steps:
       # Checkout code from git
       - checkout
@@ -631,9 +632,9 @@ jobs:
             --output text >> prometheusinventory.txt
             cat prometheusinventory.txt
             ansible-playbook -i prometheusinventory.txt prometheusinstall.yml
-            # sudo systemctl daemon-reload
-            # sudo systemctl start prometheus
-            # systemctl status prometheus
+            sudo systemctl daemon-reload
+            sudo systemctl start prometheus
+            sudo systemctl status prometheus
 
 workflows:
   default:
