@@ -21,6 +21,7 @@ Resources:
     Properties:
       Bucket: !Ref 'WebsiteBucket'
       PolicyDocument:
+        Version: 2012-10-17
         Statement:
         - Sid: PublicReadForGetBucketObjects
           Effect: Allow
@@ -32,3 +33,13 @@ Outputs:
   WebsiteURL:
     Value: !GetAtt WebsiteBucket.WebsiteURL
     Description: URL for website hosted on S3
+
+#     {
+# 	"Version": "2012-10-17",
+# 	"Statement": [
+# 		{
+# 			"Sid": "PublicReadGetObject",
+
+# 		}
+# 	]
+# }
