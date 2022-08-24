@@ -5,6 +5,9 @@ Parameters:
   WorkflowID:
     Description: Unique identifier.
     Type: String
+  AWS_DEFAULT_REGION:
+    Description: Unique identifier.
+    Type: String
 
 
 Resources:
@@ -20,7 +23,7 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: !Sub "udapeople-${WorkflowID}.s3.amazonaws.com"
+          - DomainName: !Sub "udapeople-${WorkflowID}.s3-website-${AWS_DEFAULT_REGION}.amazonaws.com"
           #udapeople-71ba7c4.s3-website-us-east-1.amazonaws.com
             Id: webpage
             S3OriginConfig:
