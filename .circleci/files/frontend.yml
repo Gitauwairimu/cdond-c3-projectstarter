@@ -33,13 +33,3 @@ Outputs:
   WebsiteURL:
     Value: !GetAtt WebsiteBucket.WebsiteURL
     Description: URL for website hosted on S3
-
-#     {
-# 	"Version": "2012-10-17",
-# 	"Statement": [
-# 		{
-# 			"Sid": "PublicReadGetObject",
-
-# 		}
-# 	]
-# }
