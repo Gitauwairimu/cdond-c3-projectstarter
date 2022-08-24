@@ -633,5 +633,5 @@ workflows:
           requires: [front-smoke-test]
       - cleanup:
           requires: [cloudfront-update]
-      - prometheus-server-provisioning:
-          requires: [cloudfront-update]
+      # - prometheus-server-provisioning:
+      #     requires: [cloudfront-update]
