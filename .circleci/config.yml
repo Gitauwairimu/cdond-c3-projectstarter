@@ -506,7 +506,7 @@ jobs:
               --stack-name initialStack \
               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
               --tags project=udapeople
-            no_output_timeout: 30m
+            #no_output_timeout: 30m
 
       - persist_to_workspace:
           root: .
@@ -517,10 +517,10 @@ jobs:
           channel: D03NGPP0EN8 #channel
           event: fail
 
-      - destroy-environment:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - revert-migrations:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - destroy-environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - revert-migrations:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       
       - notify_on_failure
   
