@@ -502,10 +502,11 @@ jobs:
             cat OldWorkflowID.txt
 
             aws cloudformation deploy \
-            --template-file .circleci/files/cloudfront.yml \
-            --stack-name InitialStack \
-            --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
-            --tags project=udapeoplesomecode
+              --template-file .circleci/files/cloudfront.yml \
+              --stack-name initialStack \
+              --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
+              --tags project=udapeople
+            no_output_timeout: 30m
 
       - persist_to_workspace:
           root: .
