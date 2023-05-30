@@ -85,7 +85,7 @@ jobs:
         npm install
         # npm audit fix --audit-level=critical --force
   deploy-infrastructure:
-    needs: scan-frontend, scan-backend 
+    needs: scan-frontend, scan-backend
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -96,6 +96,7 @@ jobs:
         --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
         --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
         --tags project=udapeople
+
     # steps:
     # - name: Checkout
     #   uses: actions/checkout@master
