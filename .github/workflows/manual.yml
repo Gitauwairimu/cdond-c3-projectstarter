@@ -80,6 +80,17 @@ jobs:
         cd backend
         npm install
         # npm audit fix --audit-level=critical --force
+  deploy-infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Create frontend IaC
+      run: |
+        aws cloudformation deploy \
+        --template-file .circleci/files/frontend.yml \
+        --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
+        --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
+        --tags project=udapeople
     # steps:
     # - name: Checkout
     #   uses: actions/checkout@master
