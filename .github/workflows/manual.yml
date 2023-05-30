@@ -21,10 +21,10 @@ jobs:
       with:
         node-version: 16.x
     - name: Install and run frontend build
-      run: 
+      run: |
         cd frontend
-        # npm install
-        # npm run build
+        npm install
+        npm run build
 
     # steps:
     # - name: Checkout
