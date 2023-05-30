@@ -31,6 +31,19 @@ jobs:
         npm install
         npm run build
 
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - name: Install and run frontend test
+      run: |
+        cd frontend
+        npm install
+        npm run test
+
     # steps:
     # - name: Checkout
     #   uses: actions/checkout@master
