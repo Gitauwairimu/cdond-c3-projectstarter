@@ -1,23 +1,29 @@
 # Workflow to ensure whenever a Github PR is submitted, 
 # a JIRA ticket gets created automatically. 
-name: Manual Workflow
+name: CI/CD Workflow
 
 # Controls when the action will run. 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
   # Triggers the workflow on pull request events but only for the master branch
   # pull_request_target:
   #   types: [opened, reopened]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 jobs:
-  test-transition-issue:
-    name: Convert Github Issue to Jira Issue
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+
+    # steps:
+    # - name: Checkout
+    #   uses: actions/checkout@master
 
     # - name: Login
     #   uses: atlassian/gajira-login@master
