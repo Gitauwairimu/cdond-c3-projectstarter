@@ -97,8 +97,8 @@ jobs:
         --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
         --tags project=udapeople
   env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     # steps:
     # - name: Checkout
