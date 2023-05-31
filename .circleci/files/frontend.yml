@@ -90,7 +90,7 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "udapeople-${ID}"
-      AccessControl: bucket-owner-read
+      AccessControl: BucketOwnerRead
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
