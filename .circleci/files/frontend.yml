@@ -144,6 +144,7 @@ Resources:
             Action:
               - s3:GetObject
               - s3:PutObject
+              Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
         # Statement:
         # - Sid: PublicReadForGetBucketObjects
         #   Effect: Allow
