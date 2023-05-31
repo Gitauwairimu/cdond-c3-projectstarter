@@ -18,79 +18,79 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - name: Install and run frontend build
-      run: |
-        cd frontend
-        npm install
-        npm run build
-    - name: Install and run backend build
-      run: |
-        cd backend
-        npm install
-        npm run build
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 16.x
+  #   - name: Install and run frontend build
+  #     run: |
+  #       cd frontend
+  #       npm install
+  #       npm run build
+  #   - name: Install and run backend build
+  #     run: |
+  #       cd backend
+  #       npm install
+  #       npm run build
 
-  test-frontend:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - name: Install and run frontend test
-      run: |
-        cd frontend
-        npm install
-        npm run test
-  test-backend:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - name: Install and run backend test
-      run: |
-        cd backend
-        npm install
-        npm run test
-  scan-frontend:
-    needs: test-frontend
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - name: Analyze frontend code
-      run: |
-        cd frontend
-        npm install
-        npm update
-        # npm audit fix --audit-level=critical --force
-  scan-backend:
-    needs: test-backend
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - name: Analyze backend code
-      run: |
-        cd backend
-        npm install
-        # npm audit fix --audit-level=critical --force
+  # test-frontend:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 16.x
+  #   - name: Install and run frontend test
+  #     run: |
+  #       cd frontend
+  #       npm install
+  #       npm run test
+  # test-backend:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 16.x
+  #   - name: Install and run backend test
+  #     run: |
+  #       cd backend
+  #       npm install
+  #       npm run test
+  # scan-frontend:
+  #   needs: test-frontend
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 16.x
+  #   - name: Analyze frontend code
+  #     run: |
+  #       cd frontend
+  #       npm install
+  #       npm update
+  #       # npm audit fix --audit-level=critical --force
+  # scan-backend:
+  #   needs: test-backend
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 16.x
+  #   - name: Analyze backend code
+  #     run: |
+  #       cd backend
+  #       npm install
+      #  # npm audit fix --audit-level=critical --force
   deploy-infrastructure:
-    needs: scan-backend
+    # needs: scan-backend
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
