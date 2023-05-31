@@ -53,7 +53,10 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
-      ObjectOwnership: BucketOwnerEnforced
+      OwnershipControls:
+        Rules:
+        - ObjectOwnership: BucketOwnerPreferred
+      AccessControl: AwsExecRead
 
   
   WebsiteBucketPolicy:
