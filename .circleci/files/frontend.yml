@@ -77,6 +77,43 @@
 
 
 
+# Description: >
+#   UdaPeople frontend stack.
+
+# Parameters:
+#   ID:
+#     Description: Unique identifier.
+#     Type: String
+
+# Resources:
+#   WebsiteBucket:
+#     Type: AWS::S3::Bucket
+#     Properties:
+#       BucketName: !Sub "udapeople-${ID}"
+#       AccessControl: BucketOwnerRead
+#       WebsiteConfiguration:
+#         IndexDocument: index.html
+#         ErrorDocument: 404.html
+#       # ObjectOwnership: BucketOwnerPreferred
+  
+#   WebsiteBucketPolicy:
+#     Type: AWS::S3::BucketPolicy
+#     Properties:
+#       Bucket: !Ref 'WebsiteBucket'
+#       PolicyDocument:
+#         Version: 2012-10-17
+#         Statement:
+#         - Sid: PublicReadForGetBucketObjects
+#           Effect: Allow
+#           Principal: '*'
+#           Action: s3:GetObject
+#           Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+
+# Outputs:
+#   WebsiteURL:
+#     Value: !GetAtt WebsiteBucket.WebsiteURL
+#     Description: URL for website hosted on S3
+
 Description: >
   UdaPeople frontend stack.
 
@@ -84,7 +121,6 @@ Parameters:
   ID:
     Description: Unique identifier.
     Type: String
-
 Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
@@ -95,7 +131,7 @@ Resources:
         IndexDocument: index.html
         ErrorDocument: 404.html
       # ObjectOwnership: BucketOwnerPreferred
-  
+
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -108,6 +144,20 @@ Resources:
           Principal: '*'
           Action: s3:GetObject
           Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+
+        - Sid: AllowPutBucketPolicy
+          Effect: Allow
+          Principal: 
+            AWS: arn:aws:iam::123456789012:root
+          Action: s3:PutBucketPolicy
+          Resource: !Ref 'WebsiteBucket'
+
+        - Sid: AllowGetBucketPolicy
+          Effect: Allow
+          Principal: 
+            AWS: arn:aws:iam::123456789012:root
+          Action: s3:GetBucketPolicy
+          Resource: !Ref 'WebsiteBucket'
 
 Outputs:
   WebsiteURL:
