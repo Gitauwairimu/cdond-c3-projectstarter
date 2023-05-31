@@ -147,15 +147,13 @@ Resources:
 
         - Sid: AllowPutBucketPolicy
           Effect: Allow
-          Principal: 
-            AWS: arn:aws:iam::123456789012:root
+          Principal: '*'
           Action: s3:PutBucketPolicy
           Resource: !Ref 'WebsiteBucket'
 
         - Sid: AllowGetBucketPolicy
           Effect: Allow
-          Principal: 
-            AWS: arn:aws:iam::123456789012:root
+          Principal: '*'
           Action: s3:GetBucketPolicy
           Resource: !Ref 'WebsiteBucket'
 
