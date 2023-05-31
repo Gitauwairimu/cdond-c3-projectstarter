@@ -5,10 +5,15 @@ name: CI/CD Workflow
 # Controls when the action will run. 
 on:
   pull_request:
+    branches: [ main ]
   push:
+    branches: [ main ]
   # Triggers the workflow on pull request events but only for the master branch
   # pull_request_target:
   #   types: [opened, reopened]
+  # Run monthly builds to keep images fresh and updated from security vunerabilities
+  schedule:
+    - cron: '0 12 15 * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -93,8 +98,8 @@ jobs:
       run: |
         aws cloudformation deploy \
         --template-file .circleci/files/frontend.yml \
-        --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
-        --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
+        --stack-name udapeople-frontend-${{ github.run_id:0:7 }} \
+        --parameter-overrides ID="${{ github.run_id:0:7 }}" \
         --tags project=udapeople
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
