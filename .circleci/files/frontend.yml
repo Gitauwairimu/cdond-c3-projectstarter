@@ -55,18 +55,18 @@ Resources:
         ErrorDocument: 404.html
       ObjectOwnership: BucketOwnerPreferred
   
-  WebsiteBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref 'WebsiteBucket'
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-        - Sid: PublicReadForGetBucketObjects
-          Effect: Allow
-          Principal: '*'
-          Action: s3:GetObject
-          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+  # WebsiteBucketPolicy:
+  #   Type: AWS::S3::BucketPolicy
+  #   Properties:
+  #     Bucket: !Ref 'WebsiteBucket'
+  #     PolicyDocument:
+  #       Version: 2012-10-17
+  #       Statement:
+  #       - Sid: PublicReadForGetBucketObjects
+  #         Effect: Allow
+  #         Principal: '*'
+  #         Action: s3:GetObject
+  #         Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
 
 Outputs:
   WebsiteURL:
