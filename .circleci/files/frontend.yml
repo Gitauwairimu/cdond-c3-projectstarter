@@ -81,6 +81,7 @@ Parameters:
   ID:
     Description: Unique identifier.
     Type: String
+    
 Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
@@ -90,24 +91,7 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
-  
-  WebsiteBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref 'WebsiteBucket'
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-        - Sid: PublicReadForGetBucketObjects
-          Effect: Allow
-          Principal: '*'
-          Action: s3:GetObject
-          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
-        - Sid: AllowUploadsFromSpecificUsers
-          Effect: Allow
-          Principal: !Sub arn:aws:iam::123456789012:user/username
-          Action: s3:PutObject
-          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+      ObjectOwnership: BucketOwnerEnforced
 
 Outputs:
   WebsiteURL:
