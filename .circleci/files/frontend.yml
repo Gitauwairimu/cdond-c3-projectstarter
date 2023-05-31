@@ -74,14 +74,6 @@
 
 # .................................................
 
-Description: >
-  UdaPeople frontend stack.
-
-Parameters:
-  ID:
-    Description: Unique identifier.
-    Type: String
-
 Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
@@ -91,6 +83,7 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
+      ObjectOwnership: BucketOwnerPreferred
   
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
