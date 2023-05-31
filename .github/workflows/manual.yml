@@ -12,8 +12,8 @@ on:
   # pull_request_target:
   #   types: [opened, reopened]
   # Run monthly builds to keep images fresh and updated from security vunerabilities
-  schedule:
-    - cron: '0 12 15 * *'
+  # schedule:
+  #   - cron: '0 12 15 * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
