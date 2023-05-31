@@ -139,23 +139,29 @@ Resources:
       PolicyDocument:
         Version: 2012-10-17
         Statement:
-        - Sid: PublicReadForGetBucketObjects
-          Effect: Allow
-          Principal: '*'
-          Action: s3:GetObject
-          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+          - Effect: Allow
+            Principal: '*'
+            Action:
+              - s3:GetObject
+              - s3:PutObject
+        # Statement:
+        # - Sid: PublicReadForGetBucketObjects
+        #   Effect: Allow
+        #   Principal: '*'
+        #   Action: s3:GetObject
+        #   Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
 
-        - Sid: AllowPutBucketPolicy
-          Effect: Allow
-          Principal: '*'
-          Action: s3:PutBucketPolicy
-          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+        # - Sid: AllowPutBucketPolicy
+        #   Effect: Allow
+        #   Principal: '*'
+        #   Action: s3:PutBucketPolicy
+        #   Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
 
-        - Sid: AllowGetBucketPolicy
-          Effect: Allow
-          Principal: '*'
-          Action: s3:GetBucketPolicy
-          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+        # - Sid: AllowGetBucketPolicy
+        #   Effect: Allow
+        #   Principal: '*'
+        #   Action: s3:GetBucketPolicy
+        #   Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
 
 Outputs:
   WebsiteURL:
